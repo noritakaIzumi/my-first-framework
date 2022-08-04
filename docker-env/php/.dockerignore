@@ -1,0 +1,3 @@
+/.dockerignore
+/Dockerfile
+/xdebug.ini-override.template
