@@ -6,14 +6,14 @@
  * Time: 05:40
  */
 
-namespace App;
+namespace Application;
 
 class Factory
 {
     /**
      * @var array<class-string, mixed>
      */
-    public static array $mocks;
+    private static array $mocks;
 
     public static function register(string $className, mixed $mock): void
     {
@@ -23,8 +23,8 @@ class Factory
     /**
      * @template _T
      *
-     * @param class-string $className
-     * @param mixed        $args
+     * @param class-string<_T> $className
+     * @param mixed            $args
      *
      * @return _T|null
      */

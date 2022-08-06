@@ -6,23 +6,19 @@
  * Time: 11:01
  */
 
-namespace App;
+namespace Application;
 
 use RuntimeException;
 
 class UrlParser
 {
-    private string $filepath;
     private string $requestUri;
+    private string $entrypoint;
 
-    /**
-     * @param string $filepath
-     * @param string $requestUri
-     */
-    public function __construct(string $filepath, string $requestUri)
+    public function __construct(string $requestUri, string $entrypoint)
     {
-        $this->filepath = $filepath;
         $this->requestUri = $requestUri;
+        $this->entrypoint = $entrypoint;
     }
 
     /**
@@ -32,7 +28,7 @@ class UrlParser
      */
     public function parse(): UrlComponents
     {
-        $basename = basename($this->filepath);
+        $basename = $this->entrypoint;
         $uri = preg_replace(
             "#/$basename#",
             '',

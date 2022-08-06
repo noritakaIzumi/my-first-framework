@@ -19,12 +19,13 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "App"
+      "Application\\": "Application",
+      "Command\\": "Command"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "App\\": "test/App"
+      "Application\\": "test/Application"
     },
     "files": [
       "test/AbstractTestCase.php"
