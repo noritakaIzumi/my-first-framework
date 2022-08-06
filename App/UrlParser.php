@@ -8,7 +8,6 @@
 
 namespace App;
 
-use HttpRuntimeException;
 use RuntimeException;
 
 class UrlParser
@@ -27,11 +26,11 @@ class UrlParser
     }
 
     /**
-     * URL をパースします。
+     * URL をパースして結果のオブジェクトを返します。
      *
-     * @return array|false パース結果。パースに失敗した場合は false を返します。
+     * @return UrlComponents
      */
-    public function parse(): array|false
+    public function parse(): UrlComponents
     {
         $basename = basename($this->filepath);
         $uri = preg_replace(
@@ -49,6 +48,11 @@ class UrlParser
             throw new RuntimeException("request uri is invalid: $this->requestUri");
         }
 
-        return $components;
+        return Factory::get(
+            UrlComponents::class,
+            $components['path'] ?? '',
+            $components['query'] ?? '',
+            $components['fragment'] ?? '',
+        );
     }
 }

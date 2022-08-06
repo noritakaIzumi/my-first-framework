@@ -9,7 +9,11 @@ RUN apk update \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
 COPY xdebug.ini-override /tmp/xdebug.ini-override
 RUN cat /tmp/xdebug.ini-override >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+ARG COMPOSER_BIN_DIR
+ENV PATH=$PATH:${COMPOSER_BIN_DIR}
+RUN apk add unzip

@@ -10,6 +10,12 @@ services:
       - type: bind
         source: ./htdocs
         target: /usr/local/apache2/htdocs
+      - type: bind
+        source: ../..
+        target: /usr/local/apache2/${APP_NAME}
+    environment:
+      - APP_NAME
+      - APP_HOST
     ports:
       - "80:80"
   php:
@@ -17,8 +23,12 @@ services:
       context: php
       args:
         - PHP_VERSION=${PHP_VERSION}
+        - COMPOSER_BIN_DIR=/usr/local/apache2/${APP_NAME}/vendor/bin
     volumes:
       - type: bind
         source: ./htdocs
         target: /usr/local/apache2/htdocs
-    working_dir: /usr/local/apache2/htdocs
+      - type: bind
+        source: ../..
+        target: /usr/local/apache2/${APP_NAME}
+    working_dir: /usr/local/apache2/${APP_NAME}
