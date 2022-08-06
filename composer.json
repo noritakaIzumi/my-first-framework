@@ -1,0 +1,18 @@
+{
+  "name": "noritaka_izumi/my-first-framework",
+  "description": "My First Framework",
+  "type": "library",
+  "version": "0.0.1",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Noritaka IZUMI",
+      "email": "noritaka.izumi@gmail.com"
+    }
+  ],
+  "require": {
+  },
+  "require-dev": {
+  }
+}
