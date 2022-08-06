@@ -1,26 +1,17 @@
 <?php
 
+use App\UrlParser;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// define constants
 const ROOT_PATH = __DIR__;
 
-$urlComponents = (static function () {
-    $basename = basename(__FILE__);
-    $requestUri = preg_replace(
-        "#/$basename#",
-        '',
-        preg_replace(
-            '/(\/+)/',
-            '/',
-            $_SERVER['REQUEST_URI'],
-        ),
-    );
-
-    return parse_url($requestUri);
-})();
-
-is_array($urlComponents) or trigger_error("request uri is invalid: {$_SERVER['REQUEST_URI']}");
+$urlParser = new UrlParser(__FILE__, $_SERVER['REQUEST_URI']);
+$urlComponents = $urlParser->parse();
 
 $path = $urlComponents['path'] ?? '';
 $query = $urlComponents['query'] ?? '';
 $fragment = $urlComponents['fragment'] ?? '';
 
-exit;
+return;

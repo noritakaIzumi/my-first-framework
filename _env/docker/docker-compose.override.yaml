@@ -4,20 +4,14 @@ services:
   httpd:
     volumes:
       - type: bind
-        source: ../../app
-        target: /usr/local/apache2/${APP_NAME}/app
-      - type: bind
-        source: ../../web
-        target: /usr/local/apache2/${APP_NAME}/web
+        source: ../..
+        target: /usr/local/apache2/${APP_NAME}
     environment:
       - APP_NAME
       - APP_HOST
   php:
     volumes:
       - type: bind
-        source: ../../app
-        target: /usr/local/apache2/${APP_NAME}/app
-      - type: bind
-        source: ../../web
-        target: /usr/local/apache2/${APP_NAME}/web
-    working_dir: /usr/local/apache2/htdocs
+        source: ../..
+        target: /usr/local/apache2/${APP_NAME}
+    working_dir: /usr/local/apache2/${APP_NAME}
