@@ -21,4 +21,4 @@ services:
       - type: bind
         source: ./htdocs
         target: /usr/local/apache2/htdocs
-    working_dir: ${PHP_CONTAINER_WORKING_DIR:-/usr/local/apache2/htdocs}
+    working_dir: /usr/local/apache2/htdocs

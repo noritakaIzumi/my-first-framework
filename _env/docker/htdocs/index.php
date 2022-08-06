@@ -2,7 +2,7 @@
 
 const ROOT_PATH = __DIR__;
 
-$parsedUrl = (static function () {
+$urlComponents = (static function () {
     $basename = basename(__FILE__);
     $requestUri = preg_replace(
         "#/$basename#",
@@ -17,10 +17,10 @@ $parsedUrl = (static function () {
     return parse_url($requestUri);
 })();
 
-$parsedUrl !== false or trigger_error("request uri is invalid: {$_SERVER['REQUEST_URI']}");
+is_array($urlComponents) or trigger_error("request uri is invalid: {$_SERVER['REQUEST_URI']}");
 
-$path = $parsedUrl['path'] ?? '';
-$query = $parsedUrl['query'] ?? '';
-$fragment = $parsedUrl['fragment'] ?? '';
+$path = $urlComponents['path'] ?? '';
+$query = $urlComponents['query'] ?? '';
+$fragment = $urlComponents['fragment'] ?? '';
 
 exit;
