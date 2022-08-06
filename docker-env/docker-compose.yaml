@@ -6,6 +6,10 @@ services:
       context: httpd
       args:
         - HTTPD_VERSION=${HTTPD_VERSION}
+    volumes:
+      - type: bind
+        source: ./htdocs
+        target: /usr/local/apache2/htdocs
     ports:
       - "80:80"
   php:
@@ -17,3 +21,4 @@ services:
       - type: bind
         source: ./htdocs
         target: /usr/local/apache2/htdocs
+    working_dir: ${PHP_CONTAINER_WORKING_DIR:-/usr/local/apache2/htdocs}
