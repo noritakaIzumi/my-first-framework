@@ -51,7 +51,9 @@ class Web
 
         /** @var Router $router */
         $router = Factory::get(Router::class, [Factory::get(Routes::class)]);
-        $artifacts = $router->getWorkflow($path)->run();
+        $workflow = $router->getWorkflow($path);
+
+        $artifacts = $workflow->run();
 
         echo json_encode($artifacts);
     }
