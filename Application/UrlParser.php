@@ -46,9 +46,7 @@ class UrlParser
 
         return Factory::get(
             UrlComponents::class,
-            $components['path'] ?? '',
-            $components['query'] ?? '',
-            $components['fragment'] ?? '',
+            [$components['path'] ?? '', $components['query'] ?? '', $components['fragment'] ?? ''],
         );
     }
 }

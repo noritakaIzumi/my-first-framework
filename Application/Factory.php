@@ -24,11 +24,11 @@ class Factory
      * @template _T
      *
      * @param class-string<_T> $className
-     * @param mixed            $args
+     * @param array            $args
      *
-     * @return _T|null
+     * @return _T
      */
-    public static function get(string $className, ...$args): mixed
+    public static function get(string $className, array $args = []): mixed
     {
         return self::$mocks[$className] ?? new $className(...$args);
     }

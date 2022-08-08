@@ -9,12 +9,18 @@
 namespace Command;
 
 use Application\Factory;
+use Application\Router;
 use Application\UrlParser;
+use Application\Workflow;
 
 class Web
 {
     public array $paths = [];
     public string $entrypoint;
+    public array $request;
+    public array $cookie;
+
+    public Workflow $workflow;
 
     /**
      * @param string $entrypoint このクラスを実行するファイルパス。
@@ -23,19 +29,32 @@ class Web
     {
         $this->paths['ROOT_PATH'] = dirname($entrypoint);
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
+        $this->request = [
+            'get' => $_GET,
+            'post' => $_POST,
+            'request' => $_REQUEST,
+        ];
+        $this->cookie = $_COOKIE;
     }
 
     public function run(string $requestUri): void
     {
-        $urlParser = Factory::get(UrlParser::class, $requestUri, $this->entrypoint);
+        $urlParser = Factory::get(
+            UrlParser::class,
+            [$requestUri, $this->entrypoint],
+        );
         $urlComponents = $urlParser->parse();
 
-        $path = $urlComponents->getPath();
-        $query = $urlComponents->getQuery();
-        $fragment = $urlComponents->getFragment();
+        /** @var Router $router */
+        $router = Factory::get(Router::class);
+        $this->workflow = $router->getWorkflow($urlComponents->getPath());
 
-        // TODO: ルーティングの処理を作る
+        $job = $this->workflow->head;
+        while ($job !== null) {
+            $job->execute();
+            $job = $job->next;
+        }
 
-        return;
+        echo json_encode($this->workflow->artifacts);
     }
 }
