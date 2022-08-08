@@ -10,8 +10,8 @@ namespace Command;
 
 use Application\Factory;
 use Application\Router;
+use Application\Routes;
 use Application\UrlParser;
-use Application\Workflow;
 
 class Web
 {
@@ -20,14 +20,13 @@ class Web
     public array $request;
     public array $cookie;
 
-    public Workflow $workflow;
-
     /**
      * @param string $entrypoint このクラスを実行するファイルパス。
      */
     public function __construct(string $entrypoint)
     {
         $this->paths['ROOT_PATH'] = dirname($entrypoint);
+        $this->paths['APP_PATH'] = __DIR__;
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
         $this->request = [
             'get' => $_GET,
@@ -35,26 +34,25 @@ class Web
             'request' => $_REQUEST,
         ];
         $this->cookie = $_COOKIE;
+        foreach (glob(__DIR__ . '/../config/*.php') as $filepath) {
+            require_once $filepath;
+        }
     }
 
     public function run(string $requestUri): void
     {
+        /** @var UrlParser $urlParser */
         $urlParser = Factory::get(
             UrlParser::class,
             [$requestUri, $this->entrypoint],
         );
         $urlComponents = $urlParser->parse();
+        $path = $urlComponents->getPath();
 
         /** @var Router $router */
-        $router = Factory::get(Router::class);
-        $this->workflow = $router->getWorkflow($urlComponents->getPath());
+        $router = Factory::get(Router::class, [Factory::get(Routes::class)]);
+        $artifacts = $router->getWorkflow($path)->run();
 
-        $job = $this->workflow->head;
-        while ($job !== null) {
-            $job->execute();
-            $job = $job->next;
-        }
-
-        echo json_encode($this->workflow->artifacts);
+        echo json_encode($artifacts);
     }
 }

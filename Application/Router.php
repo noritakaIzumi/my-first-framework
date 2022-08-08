@@ -10,8 +10,18 @@ namespace Application;
 
 class Router
 {
-    public function getWorkflow(string $getPath)
+    public Routes $routes;
+
+    public function __construct(Routes $routes)
     {
-        return Factory::get(Workflow::class);
+        $this->routes = $routes;
+    }
+
+    public function getWorkflow(string $path): Workflow
+    {
+        // TODO: パスの解析
+        $callables = $this->routes->get[$path] ?? [];
+
+        return WorkflowBuilder::build($callables);
     }
 }

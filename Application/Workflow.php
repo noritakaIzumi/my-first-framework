@@ -11,5 +11,16 @@ namespace Application;
 class Workflow
 {
     public ?Job $head = null;
-    public array $artifacts = [];
+    public mixed $artifacts = null;
+
+    public function run(): mixed
+    {
+        $job = $this->head;
+        while ($job !== null) {
+            $this->artifacts = $job->execute($this->artifacts);
+            $job = $job->next;
+        }
+
+        return $this->artifacts;
+    }
 }

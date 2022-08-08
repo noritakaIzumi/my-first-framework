@@ -23,13 +23,13 @@ class Factory
     /**
      * @template _T
      *
-     * @param class-string<_T> $className
-     * @param array            $args
+     * @param class-string<_T> $className       クラス名
+     * @param array            $constructorArgs コンストラクタの引数
      *
      * @return _T
      */
-    public static function get(string $className, array $args = []): mixed
+    public static function get(string $className, array $constructorArgs = []): mixed
     {
-        return self::$mocks[$className] ?? new $className(...$args);
+        return self::$mocks[$className] ?? new $className(...$constructorArgs);
     }
 }
