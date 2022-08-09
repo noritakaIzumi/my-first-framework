@@ -90,5 +90,6 @@ class Request
     {
         self::$_get = null;
         self::$_post = null;
+        self::$_request = null;
     }
 }
