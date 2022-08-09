@@ -6,7 +6,7 @@
  * Time: 11:01
  */
 
-namespace Application;
+namespace Core;
 
 use RuntimeException;
 

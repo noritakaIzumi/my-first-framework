@@ -6,12 +6,12 @@
  * Time: 04:56
  */
 
-namespace Application;
+namespace Core;
 
 use AbstractTestCase;
 
 /**
- * @covers \Application\UrlComponents
+ * @covers \Core\UrlComponents
  */
 class UrlComponentsTest extends AbstractTestCase
 {

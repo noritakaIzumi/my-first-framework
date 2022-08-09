@@ -6,9 +6,9 @@
  * Time: 03:59
  */
 
-use Application\Factory;
-use Application\Routes;
-use Application\SampleService;
+use Core\Factory;
+use Core\Routes;
+use Core\SampleService;
 
 $routes = Factory::get(Routes::class);
 

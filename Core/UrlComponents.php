@@ -6,7 +6,7 @@
  * Time: 04:21
  */
 
-namespace Application;
+namespace Core;
 
 class UrlComponents
 {

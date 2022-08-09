@@ -6,7 +6,7 @@
  * Time: 22:57
  */
 
-namespace Application;
+namespace Core;
 
 class Router
 {

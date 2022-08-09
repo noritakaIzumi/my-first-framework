@@ -6,7 +6,7 @@
  * Time: 06:34
  */
 
-namespace Application;
+namespace Core;
 
 class WorkflowBuilder
 {

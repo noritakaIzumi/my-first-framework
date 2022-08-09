@@ -6,7 +6,7 @@
  * Time: 22:43
  */
 
-namespace Application;
+namespace Core;
 
 class Job
 {

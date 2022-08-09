@@ -6,7 +6,7 @@
  * Time: 05:40
  */
 
-namespace Application;
+namespace Core;
 
 class SampleService
 {

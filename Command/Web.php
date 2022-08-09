@@ -8,10 +8,10 @@
 
 namespace Command;
 
-use Application\Factory;
-use Application\Router;
-use Application\Routes;
-use Application\UrlParser;
+use Core\Factory;
+use Core\Router;
+use Core\Routes;
+use Core\UrlParser;
 
 class Web
 {

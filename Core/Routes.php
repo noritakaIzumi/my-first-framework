@@ -6,7 +6,7 @@
  * Time: 03:57
  */
 
-namespace Application;
+namespace Core;
 
 class Routes
 {
