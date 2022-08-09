@@ -19,19 +19,19 @@ class Request
         if (self::$_get === null) {
             self::$_get = $_get ?? $_GET;
         } else {
-            // get param がすでにセットされているのでスキップしますのログ
+            // TODO: get param がすでにセットされているのでスキップしますのログ
         }
 
         if (self::$_post === null) {
             self::$_post = $_post ?? $_POST;
         } else {
-            // post param がすでにセットされているのでスキップしますのログ
+            // TODO: post param がすでにセットされているのでスキップしますのログ
         }
 
         if (self::$_request === null) {
-            self::$_request = $_request ?? $_POST;
+            self::$_request = $_request ?? $_REQUEST;
         } else {
-            // post param がすでにセットされているのでスキップしますのログ
+            // TODO: post param がすでにセットされているのでスキップしますのログ
         }
     }
 
