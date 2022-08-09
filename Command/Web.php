@@ -9,6 +9,7 @@
 namespace Command;
 
 use Core\Factory;
+use Core\Request;
 use Core\Router;
 use Core\Routes;
 use Core\UrlParser;
@@ -17,7 +18,6 @@ class Web
 {
     public array $paths = [];
     public string $entrypoint;
-    public array $request;
     public array $cookie;
 
     /**
@@ -28,11 +28,8 @@ class Web
         $this->paths['ROOT_PATH'] = dirname($entrypoint);
         $this->paths['APP_PATH'] = __DIR__;
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
-        $this->request = [
-            'get' => $_GET,
-            'post' => $_POST,
-            'request' => $_REQUEST,
-        ];
+        Request::init();
+        // TODO: cookie を取得したりセットしたりするクラスを作成する
         $this->cookie = $_COOKIE;
         foreach (glob(__DIR__ . '/../config/*.php') as $filepath) {
             require_once $filepath;
@@ -55,6 +52,7 @@ class Web
 
         $artifacts = $workflow->run();
 
+        // TODO: アウトプットは何かでラップする
         echo json_encode($artifacts);
     }
 }
