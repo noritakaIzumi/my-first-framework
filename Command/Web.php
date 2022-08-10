@@ -10,6 +10,7 @@ namespace Command;
 
 use Core\Factory;
 use Core\Request;
+use Core\Response;
 use Core\Router;
 use Core\Routes;
 use Core\UrlParser;
@@ -52,7 +53,8 @@ class Web
 
         $artifacts = $workflow->run();
 
-        // TODO: アウトプットは何かでラップする
-        echo json_encode($artifacts);
+        /** @var Response $response */
+        $response = Factory::get(Response::class);
+        $response->output($artifacts);
     }
 }

@@ -16,17 +16,16 @@ $routes = Factory::get(Routes::class);
 
 $routes->get('/', [
     static function (): array {
-        echo 'process 1<br>';
+        // echo 'process 1<br>';
 
         return ['foo' => 'bar'];
     },
-    static function (array $artifacts): array {
-        echo 'process 2<br>';
+    static function (array $artifacts) {
+        // echo 'process 2<br>';
         $artifacts['blah'] = 'blah';
 
-        return $artifacts;
+        return 123;
     },
-    [[new SampleService(), 'test']],
 ]);
 
 // ここまで
