@@ -21,6 +21,7 @@ class Routes
      * @param array  $callbacks
      *
      * @return $this
+     * @todo 正規表現の replacement = $n 等の対応
      */
     public function get(string $pattern, array $callbacks): static
     {

@@ -28,9 +28,9 @@ class Router
      */
     public function getWorkflow(string $requestMethod, string $path): Workflow
     {
-        $callables = match (strtolower($requestMethod)) {
-            'get' => $this->routes->get[$path] ?? [],
-            'post' => $this->routes->post[$path] ?? [],
+        $requestMethod = strtolower($requestMethod);
+        $callables = match ($requestMethod) {
+            'get', 'post' => $this->matchPath($requestMethod, $path),
             default => trigger_error('method not allowed', E_USER_ERROR),
         };
 
@@ -38,5 +38,30 @@ class Router
         $workflowBuilder = SharedFactory::getInstance(WorkflowBuilder::class);
 
         return $workflowBuilder->build($callables);
+    }
+
+    /**
+     * @param string $requestMethod
+     * @param string $path
+     *
+     * @return array|callable[]
+     * @todo 正規表現の replacement = $n 等の対応
+     */
+    protected function matchPath(string $requestMethod, string $path): array
+    {
+        $paths = match ($requestMethod) {
+            'get' => $this->routes->get,
+            'post' => $this->routes->post,
+            default => [],
+        };
+
+        foreach ($paths as $pattern => $jobs) {
+            $replaced = preg_replace("#^$pattern$#", '', $path);
+            if ($replaced === '') {
+                return $jobs;
+            }
+        }
+
+        return [];
     }
 }
