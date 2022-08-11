@@ -7,10 +7,10 @@
  */
 
 use Core\Component\AbstractJob;
-use Core\Factory\Service;
-use Core\Service\Routes;
+use Core\Factory\SharedFactory;
+use Core\Shared\Routes;
 
-$routes = Service::get(Routes::class);
+$routes = SharedFactory::get(Routes::class);
 
 // ここからルーティングを書く
 

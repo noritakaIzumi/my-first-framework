@@ -8,7 +8,7 @@
 
 namespace Core\Factory;
 
-class Service implements MockInterface
+class SharedFactory implements MockInterface
 {
     /**
      * @var array<class-string, object>

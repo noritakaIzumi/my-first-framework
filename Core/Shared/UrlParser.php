@@ -6,7 +6,7 @@
  * Time: 11:01
  */
 
-namespace Core\Service;
+namespace Core\Shared;
 
 use Core\Component\UrlComponents;
 use Core\Factory\ComponentFactory;

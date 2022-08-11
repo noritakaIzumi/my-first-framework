@@ -11,11 +11,11 @@ namespace Command;
 use Core\Store\Cookie;
 use Core\Store\Request;
 use Core\Component\Workflow;
-use Core\Factory\Service;
-use Core\Service\Response;
-use Core\Service\Router;
-use Core\Service\Routes;
-use Core\Service\UrlParser;
+use Core\Factory\SharedFactory;
+use Core\Shared\Response;
+use Core\Shared\Router;
+use Core\Shared\Routes;
+use Core\Shared\UrlParser;
 
 class Web
 {
@@ -48,7 +48,7 @@ class Web
         // get normalized path
         $path = (function (string $requestUri): string {
             /** @var UrlParser $urlParser */
-            $urlParser = Service::get(UrlParser::class);
+            $urlParser = SharedFactory::get(UrlParser::class);
 
             return $urlParser->parse($requestUri, $this->entrypoint)->getPath();
         })(
@@ -58,7 +58,7 @@ class Web
         // get workflow by path
         $workflow = (static function (string $requestMethod, string $path): Workflow {
             /** @var Router $router */
-            $router = Service::get(Router::class, [Service::get(Routes::class)]);
+            $router = SharedFactory::get(Router::class, [SharedFactory::get(Routes::class)]);
 
             return $router->getWorkflow($requestMethod, $path);
         })(
@@ -71,7 +71,7 @@ class Web
             $artifacts = $workflow->run();
 
             /** @var Response $response */
-            $response = Service::get(Response::class);
+            $response = SharedFactory::get(Response::class);
             $response->output($artifacts);
         })(
             $workflow

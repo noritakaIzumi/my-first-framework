@@ -6,10 +6,10 @@
  * Time: 22:57
  */
 
-namespace Core\Service;
+namespace Core\Shared;
 
 use Core\Component\Workflow;
-use Core\Factory\Service;
+use Core\Factory\SharedFactory;
 
 class Router
 {
@@ -35,7 +35,7 @@ class Router
         };
 
         /** @var WorkflowBuilder $workflowBuilder */
-        $workflowBuilder = Service::get(WorkflowBuilder::class);
+        $workflowBuilder = SharedFactory::get(WorkflowBuilder::class);
 
         return $workflowBuilder->build($callables);
     }

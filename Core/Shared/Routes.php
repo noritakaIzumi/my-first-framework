@@ -6,7 +6,7 @@
  * Time: 03:57
  */
 
-namespace Core\Service;
+namespace Core\Shared;
 
 class Routes
 {

@@ -6,7 +6,7 @@
  * Time: 06:34
  */
 
-namespace Core\Service;
+namespace Core\Shared;
 
 use Core\Component\AbstractJob;
 use Core\Component\Workflow;
