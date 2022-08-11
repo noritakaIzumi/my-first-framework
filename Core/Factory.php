@@ -36,6 +36,10 @@ class Factory
      */
     public static function get(string $className, array $constructorArgs = []): mixed
     {
-        return self::$mocks[$className] ?? new $className(...$constructorArgs);
+        if (isset(self::$mocks[$className])) {
+            return clone self::$mocks[$className];
+        }
+
+        return new $className(...$constructorArgs);
     }
 }
