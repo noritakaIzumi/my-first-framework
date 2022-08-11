@@ -15,6 +15,7 @@ use Core\Response;
 use Core\Router;
 use Core\Routes;
 use Core\UrlParser;
+use Core\Workflow;
 
 class Web
 {
@@ -36,24 +37,41 @@ class Web
         }
     }
 
-    public function run(string $requestUri): void
+    public function run(string $requestMethod, string $requestUri): void
     {
-        /** @var UrlParser $urlParser */
-        $urlParser = Factory::get(
-            UrlParser::class,
-            [$requestUri, $this->entrypoint],
+        // get normalized path
+        $path = (function (string $requestUri): string {
+            /** @var UrlParser $urlParser */
+            $urlParser = Factory::get(
+                UrlParser::class,
+                [$requestUri, $this->entrypoint],
+            );
+
+            return $urlParser->parse()->getPath();
+        })(
+            $requestUri
         );
-        $urlComponents = $urlParser->parse();
-        $path = $urlComponents->getPath();
 
-        /** @var Router $router */
-        $router = Factory::get(Router::class, [Factory::get(Routes::class)]);
-        $workflow = $router->getWorkflow($path);
+        // get workflow by path
+        $workflow = (static function (string $requestMethod, string $path): Workflow {
+            /** @var Router $router */
+            $router = Factory::get(Router::class, [Factory::get(Routes::class)]);
 
-        $artifacts = $workflow->run();
+            return $router->getWorkflow($requestMethod, $path);
+        })(
+            $requestMethod,
+            $path
+        );
 
-        /** @var Response $response */
-        $response = Factory::get(Response::class);
-        $response->output($artifacts);
+        // run
+        (static function (Workflow $workflow): void {
+            $artifacts = $workflow->run();
+
+            /** @var Response $response */
+            $response = Factory::get(Response::class);
+            $response->output($artifacts);
+        })(
+            $workflow
+        );
     }
 }

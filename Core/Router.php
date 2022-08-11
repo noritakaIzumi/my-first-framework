@@ -17,10 +17,19 @@ class Router
         $this->routes = $routes;
     }
 
-    public function getWorkflow(string $path): Workflow
+    /**
+     * @param string $requestMethod
+     * @param string $path
+     *
+     * @return Workflow
+     */
+    public function getWorkflow(string $requestMethod, string $path): Workflow
     {
-        // TODO: パスの解析
-        $callables = $this->routes->get[$path] ?? [];
+        $callables = match (strtolower($requestMethod)) {
+            'get' => $this->routes->get[$path] ?? [],
+            'post' => $this->routes->post[$path] ?? [],
+            default => trigger_error('method not allowed', E_USER_ERROR),
+        };
 
         return WorkflowBuilder::build($callables);
     }
