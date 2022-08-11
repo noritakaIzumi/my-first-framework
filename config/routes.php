@@ -10,6 +10,7 @@ use Core\AbstractJob;
 use Core\Factory;
 use Core\Routes;
 use Core\SampleService;
+use Core\SharedServices;
 
 $routes = Factory::get(Routes::class);
 
@@ -40,4 +41,4 @@ $routes->get('/', [
 
 // ここまで
 
-Factory::register(Routes::class, $routes);
+SharedServices::register(Routes::class, $routes);

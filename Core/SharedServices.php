@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: norit
- * Date: 2022/08/07
- * Time: 05:40
+ * Date: 2022/08/11
+ * Time: 21:07
  */
 
 namespace Core;
 
-class Factory implements MockStoreInterface
+class SharedServices implements MockStoreInterface
 {
     /**
      * @var array<class-string, object>
@@ -28,10 +28,6 @@ class Factory implements MockStoreInterface
      */
     public static function get(string $className, array $constructorArgs = []): object
     {
-        if (isset(self::$mocks[$className])) {
-            return new self::$mocks[$className];
-        }
-
-        return new $className(...$constructorArgs);
+        return self::$mocks[$className] ?? new $className(...$constructorArgs);
     }
 }
