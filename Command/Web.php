@@ -8,6 +8,7 @@
 
 namespace Command;
 
+use Core\Cookie;
 use Core\Factory;
 use Core\Request;
 use Core\Response;
@@ -19,7 +20,6 @@ class Web
 {
     public array $paths = [];
     public string $entrypoint;
-    public array $cookie;
 
     /**
      * @param string $entrypoint このクラスを実行するファイルパス。
@@ -30,8 +30,7 @@ class Web
         $this->paths['APP_PATH'] = __DIR__;
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
         Request::init();
-        // TODO: cookie を取得したりセットしたりするクラスを作成する
-        $this->cookie = $_COOKIE;
+        Cookie::init();
         foreach (glob(__DIR__ . '/../config/*.php') as $filepath) {
             require_once $filepath;
         }
