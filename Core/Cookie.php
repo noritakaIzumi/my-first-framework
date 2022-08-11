@@ -8,7 +8,7 @@
 
 namespace Core;
 
-class Cookie
+class Cookie implements ParameterStoreInterface
 {
     public static ?array $_cookie = null;
 

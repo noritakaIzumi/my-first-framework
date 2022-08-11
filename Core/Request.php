@@ -8,12 +8,19 @@
 
 namespace Core;
 
-class Request
+class Request implements ParameterStoreInterface
 {
     private static ?array $_get = null;
     private static ?array $_post = null;
     private static ?array $_request = null;
 
+    /**
+     * @param array|null $_get
+     * @param array|null $_post
+     * @param array|null $_request
+     *
+     * @return void
+     */
     public static function init(?array $_get = null, ?array $_post = null, ?array $_request = null): void
     {
         if (self::$_get === null) {
