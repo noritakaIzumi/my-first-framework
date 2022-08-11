@@ -6,6 +6,7 @@
  * Time: 03:59
  */
 
+use Core\AbstractJob;
 use Core\Factory;
 use Core\Routes;
 use Core\SampleService;
@@ -24,7 +25,16 @@ $routes->get('/', [
         // echo 'process 2<br>';
         $artifacts['blah'] = 'blah';
 
-        return 123;
+        return [123];
+    },
+    [new SampleService(), 'test'],
+    new class extends AbstractJob {
+        public function execute(array $artifacts): array
+        {
+            $artifacts['banana'] = 200;
+
+            return $artifacts;
+        }
     },
 ]);
 

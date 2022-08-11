@@ -10,20 +10,34 @@ namespace Core;
 
 class WorkflowBuilder
 {
-    public static function build(array $functions): Workflow
+    public static function build(array $jobs): Workflow
     {
         /** @var Workflow $workflow */
         $workflow = Factory::get(Workflow::class);
 
         while (true) {
-            $function = array_pop($functions);
-            if ($function === null) {
+            $job = array_pop($jobs);
+            if ($job === null) {
                 break;
             }
 
-            $job = Factory::get(Job::class, [$function]);
-            $job->next = $workflow->head;
-            $workflow->head = $job;
+            $_job = match (true) {
+                $job instanceof AbstractJob => $job,
+                is_callable($job) => new class($job) extends AbstractJob {
+                    public function execute(array $artifacts): array
+                    {
+                        if ($this->func === null) {
+                            return [];
+                        }
+
+                        return call_user_func($this->func, $artifacts);
+                    }
+                },
+                default => trigger_error('the component is not a job instance nor a callable', E_USER_ERROR),
+            };
+
+            $_job->next = $workflow->head;
+            $workflow->head = $_job;
         }
 
         return $workflow;

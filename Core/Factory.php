@@ -11,11 +11,17 @@ namespace Core;
 class Factory
 {
     /**
-     * @var array<class-string, mixed>
+     * @var array<class-string, object>
      */
-    private static array $mocks;
+    private static array $mocks = [];
 
-    public static function register(string $className, mixed $mock): void
+    /**
+     * @param string $className
+     * @param object $mock
+     *
+     * @return void
+     */
+    public static function register(string $className, object $mock): void
     {
         self::$mocks[$className] = $mock;
     }

@@ -10,8 +10,8 @@ namespace Core;
 
 class Workflow
 {
-    public ?Job $head = null;
-    public mixed $artifacts = null;
+    public ?AbstractJob $head = null;
+    public mixed $artifacts = [];
 
     public function run(): mixed
     {
