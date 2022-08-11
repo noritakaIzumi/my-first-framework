@@ -48,7 +48,7 @@ class Web
         // get normalized path
         $path = (function (string $requestUri): string {
             /** @var UrlParser $urlParser */
-            $urlParser = SharedFactory::get(UrlParser::class);
+            $urlParser = SharedFactory::getInstance(UrlParser::class);
 
             return $urlParser->parse($requestUri, $this->entrypoint)->getPath();
         })(
@@ -58,7 +58,7 @@ class Web
         // get workflow by path
         $workflow = (static function (string $requestMethod, string $path): Workflow {
             /** @var Router $router */
-            $router = SharedFactory::get(Router::class, [SharedFactory::get(Routes::class)]);
+            $router = SharedFactory::getInstance(Router::class, [SharedFactory::getInstance(Routes::class)]);
 
             return $router->getWorkflow($requestMethod, $path);
         })(
@@ -71,7 +71,7 @@ class Web
             $artifacts = $workflow->run();
 
             /** @var Response $response */
-            $response = SharedFactory::get(Response::class);
+            $response = SharedFactory::getInstance(Response::class);
             $response->output($artifacts);
         })(
             $workflow

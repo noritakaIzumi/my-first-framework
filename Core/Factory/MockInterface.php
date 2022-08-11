@@ -16,7 +16,7 @@ interface MockInterface
      *
      * @return void
      */
-    public static function register(string $className, object $mock): void;
+    public static function injectMock(string $className, object $mock): void;
 
     /**
      * @template _T
@@ -26,5 +26,5 @@ interface MockInterface
      *
      * @return _T
      */
-    public static function get(string $className, array $constructorArgs = []): object;
+    public static function getInstance(string $className, array $constructorArgs = []): object;
 }

@@ -10,7 +10,7 @@ use Core\Component\AbstractJob;
 use Core\Factory\SharedFactory;
 use Core\Shared\Routes;
 
-$routes = SharedFactory::get(Routes::class);
+$routes = SharedFactory::getInstance(Routes::class);
 
 // ここからルーティングを書く
 

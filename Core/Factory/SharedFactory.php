@@ -18,7 +18,7 @@ class SharedFactory implements MockInterface
     /**
      * @inheritDoc
      */
-    public static function register(string $className, object $mock): void
+    public static function injectMock(string $className, object $mock): void
     {
         self::$mocks[$className] = $mock;
     }
@@ -26,14 +26,14 @@ class SharedFactory implements MockInterface
     /**
      * @inheritDoc
      */
-    public static function get(string $className, array $constructorArgs = []): object
+    public static function getInstance(string $className, array $constructorArgs = []): object
     {
         if (isset(self::$mocks[$className])) {
             return self::$mocks[$className];
         }
 
-        $object = ComponentFactory::get($className, $constructorArgs);
-        self::register($className, $object);
+        $object = ComponentFactory::getInstance($className, $constructorArgs);
+        self::injectMock($className, $object);
 
         return $object;
     }

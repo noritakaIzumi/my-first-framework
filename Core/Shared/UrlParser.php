@@ -36,7 +36,7 @@ class UrlParser
             throw new RuntimeException("request uri is invalid: $requestUri");
         }
 
-        return ComponentFactory::get(
+        return ComponentFactory::getInstance(
             UrlComponents::class,
             [$components['path'] ?? '', $components['query'] ?? '', $components['fragment'] ?? ''],
         );

@@ -17,7 +17,7 @@ class WorkflowBuilder
     public function build(array $jobs): Workflow
     {
         /** @var Workflow $workflow */
-        $workflow = ComponentFactory::get(Workflow::class);
+        $workflow = ComponentFactory::getInstance(Workflow::class);
 
         while (true) {
             $job = array_pop($jobs);

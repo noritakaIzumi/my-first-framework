@@ -35,7 +35,7 @@ class Router
         };
 
         /** @var WorkflowBuilder $workflowBuilder */
-        $workflowBuilder = SharedFactory::get(WorkflowBuilder::class);
+        $workflowBuilder = SharedFactory::getInstance(WorkflowBuilder::class);
 
         return $workflowBuilder->build($callables);
     }

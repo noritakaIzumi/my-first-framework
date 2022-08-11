@@ -18,7 +18,7 @@ class ComponentFactory implements MockInterface
     /**
      * @inheritDoc
      */
-    public static function register(string $className, object $mock): void
+    public static function injectMock(string $className, object $mock): void
     {
         self::$mocks[$className] = $mock;
     }
@@ -26,7 +26,7 @@ class ComponentFactory implements MockInterface
     /**
      * @inheritDoc
      */
-    public static function get(string $className, array $constructorArgs = []): object
+    public static function getInstance(string $className, array $constructorArgs = []): object
     {
         if (isset(self::$mocks[$className])) {
             return new self::$mocks[$className](...$constructorArgs);
