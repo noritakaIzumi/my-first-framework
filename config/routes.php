@@ -7,12 +7,10 @@
  */
 
 use Core\AbstractJob;
-use Core\Factory;
 use Core\Routes;
-use Core\SampleService;
 use Core\SharedServices;
 
-$routes = Factory::get(Routes::class);
+$routes = SharedServices::get(Routes::class);
 
 // ここからルーティングを書く
 
@@ -23,12 +21,8 @@ $routes->get('/', [
         return ['foo' => 'bar'];
     },
     static function (array $artifacts) {
-        // echo 'process 2<br>';
-        $artifacts['blah'] = 'blah';
-
-        return [123];
+        return ['apple' => 100];
     },
-    [new SampleService(), 'test'],
     new class extends AbstractJob {
         public function execute(array $artifacts): array
         {
@@ -40,5 +34,3 @@ $routes->get('/', [
 ]);
 
 // ここまで
-
-SharedServices::register(Routes::class, $routes);

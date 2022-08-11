@@ -29,7 +29,7 @@ class Factory implements MockStoreInterface
     public static function get(string $className, array $constructorArgs = []): object
     {
         if (isset(self::$mocks[$className])) {
-            return new self::$mocks[$className];
+            return new self::$mocks[$className](...$constructorArgs);
         }
 
         return new $className(...$constructorArgs);

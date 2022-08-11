@@ -14,6 +14,7 @@ use Core\Request;
 use Core\Response;
 use Core\Router;
 use Core\Routes;
+use Core\SharedServices;
 use Core\UrlParser;
 use Core\Workflow;
 
@@ -55,7 +56,7 @@ class Web
         // get workflow by path
         $workflow = (static function (string $requestMethod, string $path): Workflow {
             /** @var Router $router */
-            $router = Factory::get(Router::class, [Factory::get(Routes::class)]);
+            $router = SharedServices::get(Router::class, [SharedServices::get(Routes::class)]);
 
             return $router->getWorkflow($requestMethod, $path);
         })(

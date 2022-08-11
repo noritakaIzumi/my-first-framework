@@ -28,6 +28,13 @@ class SharedServices implements MockStoreInterface
      */
     public static function get(string $className, array $constructorArgs = []): object
     {
-        return self::$mocks[$className] ?? new $className(...$constructorArgs);
+        if (isset(self::$mocks[$className])) {
+            return self::$mocks[$className];
+        }
+
+        $object = Factory::get($className, $constructorArgs);
+        self::register($className, $object);
+
+        return $object;
     }
 }
