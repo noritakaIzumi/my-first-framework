@@ -10,7 +10,7 @@ namespace Core;
 
 class WorkflowBuilder
 {
-    public static function build(array $jobs): Workflow
+    public function build(array $jobs): Workflow
     {
         /** @var Workflow $workflow */
         $workflow = Factory::get(Workflow::class);

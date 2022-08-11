@@ -12,36 +12,26 @@ use RuntimeException;
 
 class UrlParser
 {
-    private string $requestUri;
-    private string $entrypoint;
-
-    public function __construct(string $requestUri, string $entrypoint)
-    {
-        $this->requestUri = $requestUri;
-        $this->entrypoint = $entrypoint;
-    }
-
     /**
      * URL をパースして結果のオブジェクトを返します。
      *
+     * @param string $requestUri
+     * @param string $entrypoint
+     *
      * @return UrlComponents
      */
-    public function parse(): UrlComponents
+    public function parse(string $requestUri, string $entrypoint): UrlComponents
     {
-        $basename = $this->entrypoint;
+        $basename = $entrypoint;
         $uri = preg_replace(
             "#/$basename#",
             '',
-            preg_replace(
-                '/(\/+)/',
-                '/',
-                $this->requestUri,
-            ),
+            preg_replace('/(\/+)/', '/', $requestUri),
         );
 
         $components = parse_url($uri);
         if (!is_array($components)) {
-            throw new RuntimeException("request uri is invalid: $this->requestUri");
+            throw new RuntimeException("request uri is invalid: $requestUri");
         }
 
         return Factory::get(

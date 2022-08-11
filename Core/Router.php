@@ -31,6 +31,9 @@ class Router
             default => trigger_error('method not allowed', E_USER_ERROR),
         };
 
-        return WorkflowBuilder::build($callables);
+        /** @var WorkflowBuilder $workflowBuilder */
+        $workflowBuilder = SharedServices::get(WorkflowBuilder::class);
+
+        return $workflowBuilder->build($callables);
     }
 }

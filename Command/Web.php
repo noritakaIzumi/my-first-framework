@@ -9,7 +9,6 @@
 namespace Command;
 
 use Core\Cookie;
-use Core\Factory;
 use Core\Request;
 use Core\Response;
 use Core\Router;
@@ -38,17 +37,20 @@ class Web
         }
     }
 
+    /**
+     * @param string $requestMethod
+     * @param string $requestUri
+     *
+     * @return void
+     */
     public function run(string $requestMethod, string $requestUri): void
     {
         // get normalized path
         $path = (function (string $requestUri): string {
             /** @var UrlParser $urlParser */
-            $urlParser = Factory::get(
-                UrlParser::class,
-                [$requestUri, $this->entrypoint],
-            );
+            $urlParser = SharedServices::get(UrlParser::class);
 
-            return $urlParser->parse()->getPath();
+            return $urlParser->parse($requestUri, $this->entrypoint)->getPath();
         })(
             $requestUri
         );
@@ -69,7 +71,7 @@ class Web
             $artifacts = $workflow->run();
 
             /** @var Response $response */
-            $response = Factory::get(Response::class);
+            $response = SharedServices::get(Response::class);
             $response->output($artifacts);
         })(
             $workflow
