@@ -6,7 +6,7 @@
  * Time: 22:43
  */
 
-namespace Core;
+namespace Core\Component;
 
 class Workflow
 {

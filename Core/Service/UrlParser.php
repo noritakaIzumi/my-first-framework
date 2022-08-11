@@ -6,8 +6,10 @@
  * Time: 11:01
  */
 
-namespace Core;
+namespace Core\Service;
 
+use Core\Component\UrlComponents;
+use Core\Factory\ComponentFactory;
 use RuntimeException;
 
 class UrlParser
@@ -34,7 +36,7 @@ class UrlParser
             throw new RuntimeException("request uri is invalid: $requestUri");
         }
 
-        return Factory::get(
+        return ComponentFactory::get(
             UrlComponents::class,
             [$components['path'] ?? '', $components['query'] ?? '', $components['fragment'] ?? ''],
         );

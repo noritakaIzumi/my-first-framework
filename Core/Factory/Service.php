@@ -6,9 +6,9 @@
  * Time: 21:07
  */
 
-namespace Core;
+namespace Core\Factory;
 
-class SharedServices implements MockStoreInterface
+class Service implements MockInterface
 {
     /**
      * @var array<class-string, object>
@@ -32,7 +32,7 @@ class SharedServices implements MockStoreInterface
             return self::$mocks[$className];
         }
 
-        $object = Factory::get($className, $constructorArgs);
+        $object = ComponentFactory::get($className, $constructorArgs);
         self::register($className, $object);
 
         return $object;

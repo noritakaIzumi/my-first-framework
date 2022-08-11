@@ -6,7 +6,7 @@
  * Time: 06:15
  */
 
-namespace Core;
+namespace Core\Store;
 
 class Request implements ParameterStoreInterface
 {

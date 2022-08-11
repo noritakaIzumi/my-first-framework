@@ -9,9 +9,10 @@
 namespace Core;
 
 use AbstractTestCase;
+use Core\Component\UrlComponents;
 
 /**
- * @covers \Core\UrlComponents
+ * @covers \Core\Component\UrlComponents
  */
 class UrlComponentsTest extends AbstractTestCase
 {

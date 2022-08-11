@@ -6,7 +6,7 @@
  * Time: 21:59
  */
 
-namespace Core;
+namespace Core\Store;
 
 interface ParameterStoreInterface
 {

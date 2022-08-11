@@ -6,14 +6,18 @@
  * Time: 06:34
  */
 
-namespace Core;
+namespace Core\Service;
+
+use Core\Component\AbstractJob;
+use Core\Component\Workflow;
+use Core\Factory\ComponentFactory;
 
 class WorkflowBuilder
 {
     public function build(array $jobs): Workflow
     {
         /** @var Workflow $workflow */
-        $workflow = Factory::get(Workflow::class);
+        $workflow = ComponentFactory::get(Workflow::class);
 
         while (true) {
             $job = array_pop($jobs);

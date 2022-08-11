@@ -6,7 +6,7 @@
  * Time: 20:02
  */
 
-namespace Core;
+namespace Core\Component;
 
 abstract class AbstractJob
 {

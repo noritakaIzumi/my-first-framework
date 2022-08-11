@@ -6,18 +6,16 @@
  * Time: 03:59
  */
 
-use Core\AbstractJob;
-use Core\Routes;
-use Core\SharedServices;
+use Core\Component\AbstractJob;
+use Core\Factory\Service;
+use Core\Service\Routes;
 
-$routes = SharedServices::get(Routes::class);
+$routes = Service::get(Routes::class);
 
 // ここからルーティングを書く
 
 $routes->get('/', [
     static function (): array {
-        // echo 'process 1<br>';
-
         return ['foo' => 'bar'];
     },
     static function (array $artifacts) {

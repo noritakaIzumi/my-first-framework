@@ -6,9 +6,9 @@
  * Time: 05:40
  */
 
-namespace Core;
+namespace Core\Factory;
 
-class Factory implements MockStoreInterface
+class ComponentFactory implements MockInterface
 {
     /**
      * @var array<class-string, object>

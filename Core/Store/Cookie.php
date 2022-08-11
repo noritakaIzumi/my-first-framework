@@ -6,7 +6,7 @@
  * Time: 17:54
  */
 
-namespace Core;
+namespace Core\Store;
 
 class Cookie implements ParameterStoreInterface
 {

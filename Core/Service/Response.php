@@ -6,7 +6,7 @@
  * Time: 07:40
  */
 
-namespace Core;
+namespace Core\Service;
 
 class Response
 {

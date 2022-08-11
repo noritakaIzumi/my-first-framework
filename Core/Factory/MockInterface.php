@@ -6,9 +6,9 @@
  * Time: 21:04
  */
 
-namespace Core;
+namespace Core\Factory;
 
-interface MockStoreInterface
+interface MockInterface
 {
     /**
      * @param string $className
