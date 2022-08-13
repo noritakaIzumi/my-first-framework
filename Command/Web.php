@@ -8,11 +8,9 @@
 
 namespace Command;
 
-use Core\Store\Cookie;
-use Core\Store\Request;
 use Core\Component\Workflow;
 use Core\Factory\SharedFactory;
-use Core\Shared\Response;
+use Core\Shared\Response\WebResponse;
 use Core\Shared\Router;
 use Core\Shared\Routes;
 use Core\Shared\UrlParser;
@@ -30,8 +28,6 @@ class Web
         $this->paths['ROOT_PATH'] = dirname($entrypoint);
         $this->paths['APP_PATH'] = __DIR__;
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
-        Request::init();
-        Cookie::init();
         foreach (glob(__DIR__ . '/../config/*.php') as $filepath) {
             require_once $filepath;
         }
@@ -70,8 +66,8 @@ class Web
         (static function (Workflow $workflow): void {
             $artifacts = $workflow->run();
 
-            /** @var Response $response */
-            $response = SharedFactory::getInstance(Response::class);
+            /** @var WebResponse $response */
+            $response = SharedFactory::getInstance(WebResponse::class);
             $response->output($artifacts);
         })(
             $workflow

@@ -6,9 +6,9 @@
  * Time: 07:40
  */
 
-namespace Core\Shared;
+namespace Core\Shared\Response;
 
-class Response
+class WebResponse implements ResponseInterface
 {
     public $headerStruct;
     /**
