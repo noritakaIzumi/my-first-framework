@@ -8,24 +8,37 @@
 
 namespace Core\Shared;
 
+use Core\Component\Route;
+use Core\Factory\ComponentFactory;
+
 class Routes
 {
     /**
-     * @var array<string, callable[]|array>
+     * GET パラメータ。
+     *
+     * @var Route[]
      */
     public array $get = [];
+    /**
+     * POST パラメータ。
+     *
+     * @var Route[]
+     */
     public array $post = [];
 
     /**
      * @param string $pattern
      * @param array  $callbacks
+     * @param string $replacement 引数
      *
      * @return $this
-     * @todo 正規表現の replacement = $n 等の対応
      */
-    public function get(string $pattern, array $callbacks): static
+    public function get(string $pattern, array $callbacks, string $replacement = ''): static
     {
-        $this->get[$pattern] = $callbacks;
+        $this->get[$pattern] = ComponentFactory::getInstance(
+            Route::class,
+            [$pattern, $callbacks, $replacement],
+        );
 
         return $this;
     }

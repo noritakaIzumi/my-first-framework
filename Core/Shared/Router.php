@@ -8,8 +8,10 @@
 
 namespace Core\Shared;
 
+use Core\Component\MatchedPath;
 use Core\Component\Workflow;
 use Core\Factory\SharedFactory;
+use JetBrains\PhpStorm\ArrayShape;
 
 class Router
 {
@@ -29,7 +31,7 @@ class Router
     public function getWorkflow(string $requestMethod, string $path): Workflow
     {
         $requestMethod = strtolower($requestMethod);
-        $callables = match ($requestMethod) {
+        $matchedPath = match ($requestMethod) {
             'get', 'post' => $this->matchPath($requestMethod, $path),
             default => trigger_error('method not allowed', E_USER_ERROR),
         };
@@ -37,31 +39,30 @@ class Router
         /** @var WorkflowBuilder $workflowBuilder */
         $workflowBuilder = SharedFactory::getInstance(WorkflowBuilder::class);
 
-        return $workflowBuilder->build($callables);
+        return $workflowBuilder->build($matchedPath);
     }
 
     /**
      * @param string $requestMethod
      * @param string $path
      *
-     * @return array|callable[]
-     * @todo 正規表現の replacement = $n 等の対応
+     * @return MatchedPath
      */
-    protected function matchPath(string $requestMethod, string $path): array
+    protected function matchPath(string $requestMethod, string $path): MatchedPath
     {
-        $paths = match ($requestMethod) {
+        $routes = match ($requestMethod) {
             'get' => $this->routes->get,
             'post' => $this->routes->post,
             default => [],
         };
 
-        foreach ($paths as $pattern => $jobs) {
-            $replaced = preg_replace("#^$pattern$#", '', $path);
-            if ($replaced === '') {
-                return $jobs;
+        foreach ($routes as $route) {
+            $replaced = preg_replace("#^$route->pattern$#", $route->replacement, $path);
+            if ($replaced !== $path) {
+                return new MatchedPath($route->callbacks, explode('/', $replaced));
             }
         }
 
-        return [];
+        return new MatchedPath([], []);
     }
 }

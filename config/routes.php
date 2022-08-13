@@ -14,19 +14,21 @@ $routes = SharedFactory::getInstance(Routes::class);
 
 // ここからルーティングを書く
 
-$routes->get('/', [
-    static function (): array {
+$routes->get('/(.*)', [
+    static function (array $artifacts, $string = ''): array {
+        var_dump($string);
+
         return ['foo' => 'bar'];
     },
     static function (array $artifacts) {
         return ['apple' => 100];
     },
     new class extends AbstractJob {
-        public function execute(array $artifacts): array
+        public function execute(array $artifacts, ...$args): array
         {
             $artifacts['banana'] = 200;
 
             return $artifacts;
         }
     },
-]);
+], '$1');

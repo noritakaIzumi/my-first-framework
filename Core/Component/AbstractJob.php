@@ -22,5 +22,5 @@ abstract class AbstractJob
         $this->func = $value;
     }
 
-    abstract public function execute(array $artifacts): array;
+    abstract public function execute(array $artifacts, ...$args): array;
 }
