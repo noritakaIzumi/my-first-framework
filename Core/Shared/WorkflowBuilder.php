@@ -19,7 +19,7 @@ class WorkflowBuilder
     {
         /** @var Workflow $workflow */
         $workflow = ComponentFactory::getInstance(Workflow::class);
-        $workflow->firstArguments = $matchedPath->firstArguments;
+        $workflow->args = $matchedPath->firstArguments;
 
         while (true) {
             $callback = array_pop($matchedPath->callbacks);
