@@ -30,7 +30,7 @@ class WorkflowBuilder
             $_job = match (true) {
                 $callback instanceof AbstractJob => $callback,
                 is_callable($callback) => new class($callback) extends AbstractJob {
-                    public function execute(array $artifacts, ...$args): array
+                    public function execute($artifacts, ...$args)
                     {
                         if ($this->func === null) {
                             return [];

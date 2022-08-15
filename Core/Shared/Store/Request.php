@@ -10,9 +10,9 @@ namespace Core\Shared\Store;
 
 class Request extends AbstractParameterStore
 {
-    private ?array $_get = null;
-    private ?array $_post = null;
-    private ?array $_request = null;
+    private ?array $_get;
+    private ?array $_post;
+    private ?array $_request;
 
     /**
      * @param array|null $_get

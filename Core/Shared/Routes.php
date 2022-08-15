@@ -13,6 +13,11 @@ use Core\Factory\ComponentFactory;
 
 class Routes
 {
+    protected static array $allowedMethods = [
+        'get',
+        'post',
+    ];
+
     /**
      * GET パラメータ。
      *
@@ -27,19 +32,32 @@ class Routes
     public array $post = [];
 
     /**
+     * @param string $method
      * @param string $pattern
      * @param array  $callbacks
-     * @param string $replacement 引数
+     * @param string $replacement
      *
      * @return $this
      */
-    public function get(string $pattern, array $callbacks, string $replacement = ''): static
+    protected function add(string $method, string $pattern, array $callbacks, string $replacement): static
     {
-        $this->get[$pattern] = ComponentFactory::getInstance(
-            Route::class,
-            [$pattern, $callbacks, $replacement],
-        );
+        if (in_array($method, self::$allowedMethods, true)) {
+            $this->{$method}[$pattern] = ComponentFactory::getInstance(
+                Route::class,
+                [$pattern, $callbacks, $replacement],
+            );
+        }
 
         return $this;
+    }
+
+    public function get(string $pattern, array $callbacks, string $replacement = ''): static
+    {
+        return $this->add('get', $pattern, $callbacks, $replacement);
+    }
+
+    public function post(string $pattern, array $callbacks, string $replacement = ''): static
+    {
+        return $this->add('post', $pattern, $callbacks, $replacement);
     }
 }

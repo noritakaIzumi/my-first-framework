@@ -11,7 +11,6 @@ namespace Core\Shared;
 use Core\Component\MatchedPath;
 use Core\Component\Workflow;
 use Core\Factory\SharedFactory;
-use JetBrains\PhpStorm\ArrayShape;
 
 class Router
 {
@@ -57,9 +56,16 @@ class Router
         };
 
         foreach ($routes as $route) {
-            $replaced = preg_replace("#^$route->pattern$#", $route->replacement, $path);
+            $pattern = '/' . trim($route->pattern, '/');
+            $replacement = trim($route->replacement, '/');
+            $path = '/' . trim($path, '/');
+
+            $replaced = preg_replace("#^$pattern$#", $replacement, $path);
             if ($replaced !== $path) {
-                return new MatchedPath($route->callbacks, explode('/', $replaced));
+                return new MatchedPath(
+                    $route->callbacks,
+                    explode('/', $replacement !== '' ? $replacement : ltrim($path, '/')),
+                );
             }
         }
 
