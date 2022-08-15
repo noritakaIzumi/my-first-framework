@@ -26,11 +26,7 @@ class Web
     public function __construct(string $entrypoint)
     {
         $this->paths['ROOT_PATH'] = dirname($entrypoint);
-        $this->paths['APP_PATH'] = __DIR__;
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
-        foreach (glob(__DIR__ . '/../configs/*.php') as $filepath) {
-            require_once $filepath;
-        }
     }
 
     /**

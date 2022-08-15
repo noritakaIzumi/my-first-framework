@@ -64,7 +64,7 @@ class Router
             if ($replaced !== $path) {
                 return new MatchedPath(
                     $route->callbacks,
-                    explode('/', $replacement !== '' ? $replacement : ltrim($path, '/')),
+                    explode('/', $replacement !== '' ? $replaced : ltrim($path, '/')),
                 );
             }
         }
