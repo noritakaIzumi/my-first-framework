@@ -6,11 +6,11 @@
  * Time: 22:57
  */
 
-namespace Core\Shared;
+namespace Internal\Shared;
 
-use Core\Component\MatchedPath;
-use Core\Component\Workflow;
-use Core\Factory\SharedFactory;
+use Internal\Component\MatchedPath;
+use Internal\Component\Workflow;
+use Internal\Factory\SharedFactory;
 
 class Router
 {

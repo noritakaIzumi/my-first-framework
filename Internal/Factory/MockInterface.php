@@ -6,7 +6,7 @@
  * Time: 21:04
  */
 
-namespace Core\Factory;
+namespace Internal\Factory;
 
 interface MockInterface
 {

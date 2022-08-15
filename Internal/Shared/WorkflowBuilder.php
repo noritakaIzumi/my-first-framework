@@ -6,12 +6,12 @@
  * Time: 06:34
  */
 
-namespace Core\Shared;
+namespace Internal\Shared;
 
-use Core\Component\AbstractJob;
-use Core\Component\MatchedPath;
-use Core\Component\Workflow;
-use Core\Factory\ComponentFactory;
+use Internal\Component\AbstractJob;
+use Internal\Component\MatchedPath;
+use Internal\Component\Workflow;
+use Internal\Factory\ComponentFactory;
 
 class WorkflowBuilder
 {

@@ -6,7 +6,7 @@
  * Time: 06:52
  */
 
-namespace Core\Component;
+namespace Internal\Component;
 
 class MatchedPath
 {

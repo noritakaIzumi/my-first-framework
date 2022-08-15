@@ -6,7 +6,7 @@
  * Time: 07:40
  */
 
-namespace Core\Shared\Response;
+namespace Internal\Shared\Response;
 
 class WebResponse implements ResponseInterface
 {

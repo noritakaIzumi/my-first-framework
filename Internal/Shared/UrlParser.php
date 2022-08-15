@@ -6,10 +6,10 @@
  * Time: 11:01
  */
 
-namespace Core\Shared;
+namespace Internal\Shared;
 
-use Core\Component\UrlComponents;
-use Core\Factory\ComponentFactory;
+use Internal\Component\UrlComponents;
+use Internal\Factory\ComponentFactory;
 use RuntimeException;
 
 class UrlParser

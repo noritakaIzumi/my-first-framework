@@ -6,7 +6,7 @@
  * Time: 04:28
  */
 
-namespace Core\Shared\Store;
+namespace Internal\Shared\Store;
 
 abstract class AbstractParameterStore
 {

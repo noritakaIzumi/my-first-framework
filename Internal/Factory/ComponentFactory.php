@@ -6,7 +6,7 @@
  * Time: 05:40
  */
 
-namespace Core\Factory;
+namespace Internal\Factory;
 
 class ComponentFactory implements MockInterface
 {

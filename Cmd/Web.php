@@ -6,14 +6,14 @@
  * Time: 08:06
  */
 
-namespace Command;
+namespace Cmd;
 
-use Core\Component\Workflow;
-use Core\Factory\SharedFactory;
-use Core\Shared\Response\WebResponse;
-use Core\Shared\Router;
-use Core\Shared\Routes;
-use Core\Shared\UrlParser;
+use Internal\Component\Workflow;
+use Internal\Factory\SharedFactory;
+use Internal\Shared\Response\WebResponse;
+use Internal\Shared\Router;
+use Internal\Shared\Routes;
+use Internal\Shared\UrlParser;
 
 class Web
 {
@@ -28,7 +28,7 @@ class Web
         $this->paths['ROOT_PATH'] = dirname($entrypoint);
         $this->paths['APP_PATH'] = __DIR__;
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
-        foreach (glob(__DIR__ . '/../config/*.php') as $filepath) {
+        foreach (glob(__DIR__ . '/../configs/*.php') as $filepath) {
             require_once $filepath;
         }
     }

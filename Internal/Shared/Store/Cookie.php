@@ -6,7 +6,7 @@
  * Time: 17:54
  */
 
-namespace Core\Shared\Store;
+namespace Internal\Shared\Store;
 
 class Cookie extends AbstractParameterStore
 {

@@ -10,8 +10,8 @@
  * ルーティング
  */
 
-use Core\Factory\SharedFactory;
-use Core\Shared\Routes;
+use Internal\Factory\SharedFactory;
+use Internal\Shared\Routes;
 
 $routes = SharedFactory::getInstance(Routes::class);
 

@@ -1,6 +1,6 @@
 <?php
 
-use Command\Web;
+use Cmd\Web;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

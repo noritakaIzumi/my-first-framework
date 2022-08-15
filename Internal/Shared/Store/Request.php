@@ -6,7 +6,7 @@
  * Time: 06:15
  */
 
-namespace Core\Shared\Store;
+namespace Internal\Shared\Store;
 
 class Request extends AbstractParameterStore
 {

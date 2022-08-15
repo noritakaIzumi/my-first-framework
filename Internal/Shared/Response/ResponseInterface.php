@@ -6,7 +6,7 @@
  * Time: 03:33
  */
 
-namespace Core\Shared\Response;
+namespace Internal\Shared\Response;
 
 interface ResponseInterface
 {

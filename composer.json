@@ -19,13 +19,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Core\\": "Core",
-      "Command\\": "Command"
+      "Internal\\": "Internal",
+      "Cmd\\": "Cmd"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Core\\": "test/Core"
+      "Internal\\": "test/Internal"
     },
     "files": [
       "test/AbstractTestCase.php"

@@ -6,7 +6,7 @@
  * Time: 21:07
  */
 
-namespace Core\Factory;
+namespace Internal\Factory;
 
 class SharedFactory implements MockInterface
 {

@@ -6,7 +6,7 @@
  * Time: 06:39
  */
 
-namespace Core\Component;
+namespace Internal\Component;
 
 class Route
 {

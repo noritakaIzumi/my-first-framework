@@ -6,10 +6,10 @@
  * Time: 03:57
  */
 
-namespace Core\Shared;
+namespace Internal\Shared;
 
-use Core\Component\Route;
-use Core\Factory\ComponentFactory;
+use Internal\Component\Route;
+use Internal\Factory\ComponentFactory;
 
 class Routes
 {
