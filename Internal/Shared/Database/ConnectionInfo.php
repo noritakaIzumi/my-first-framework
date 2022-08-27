@@ -65,7 +65,7 @@ class ConnectionInfo
 
     public function setFromEnv(): ConnectionInfo
     {
-        $dotenv = Dotenv::createImmutable(CONFIG_PATH, '.env.database');
+        $dotenv = Dotenv::createMutable(CONFIG_PATH, '.env.database');
         $env = $dotenv->load();
 
         $dotenv->ifPresent('DB_TYPE')->notEmpty();

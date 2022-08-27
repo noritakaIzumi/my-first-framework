@@ -110,3 +110,15 @@ $routes->get(
         },
     ],
 );
+
+$routes->get(
+    '/',
+    [
+        static function () {
+            $db = connectDatabase();
+            logger()->info(json_encode($db->info(), JSON_THROW_ON_ERROR));
+
+            return 'hello world';
+        },
+    ],
+);
