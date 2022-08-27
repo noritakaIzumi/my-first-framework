@@ -8,23 +8,26 @@
 
 namespace Internal\Shared\Database;
 
+use Internal\Component\Database\Dbh;
+use Internal\Factory\ComponentFactory;
 use Internal\Factory\SharedFactory;
-use Medoo\Medoo;
 
 class Database
 {
-    public ?Medoo $dbh = null;
+    public ?Dbh $dbh = null;
 
     public function connect(): static
     {
         $connectionInfo = SharedFactory::getInstance(ConnectionInfo::class);
         $connectionInfo->setFromEnv();
-        $this->dbh = new Medoo([
-            'type' => $connectionInfo->getType(),
-            'host' => $connectionInfo->getHost(),
-            'database' => $connectionInfo->getDatabase(),
-            'username' => $connectionInfo->getUsername(),
-            'password' => $connectionInfo->getPassword(),
+        $this->dbh = ComponentFactory::getInstance(Dbh::class, [
+            [
+                'type' => $connectionInfo->getType(),
+                'host' => $connectionInfo->getHost(),
+                'database' => $connectionInfo->getDatabase(),
+                'username' => $connectionInfo->getUsername(),
+                'password' => $connectionInfo->getPassword(),
+            ]
         ]);
 
         return $this;

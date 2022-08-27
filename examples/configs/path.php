@@ -7,3 +7,4 @@
  */
 
 const CONFIG_PATH = __DIR__;
+const HELPER_PATH = __DIR__ . '/../helper';

@@ -23,7 +23,10 @@
     "psr-4": {
       "Internal\\": "Internal",
       "Cmd\\": "Cmd"
-    }
+    },
+    "files": [
+      "Internal/helper/helper.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
