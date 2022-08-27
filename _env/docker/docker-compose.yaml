@@ -32,3 +32,11 @@ services:
         source: ../..
         target: /usr/local/apache2/${APP_NAME}
     working_dir: /usr/local/apache2/${APP_NAME}
+  db:
+    build:
+      context: postgres
+      args:
+        - VERSION=${POSTGRES_VERSION}
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

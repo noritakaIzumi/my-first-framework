@@ -4,10 +4,12 @@ FROM php:${PHP_VERSION}-fpm-alpine
 COPY php.ini /usr/local/etc/php/php.ini
 
 RUN apk update \
-    && apk add $PHPIZE_DEPS \
+    && apk add $PHPIZE_DEPS libpq-dev \
     && pecl channel-update pecl.php.net \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && apk del $PHPIZE_DEPS \
+    && docker-php-ext-enable xdebug \
+    && docker-php-ext-install pdo_pgsql
 
 COPY xdebug.ini-override /tmp/xdebug.ini-override
 RUN cat /tmp/xdebug.ini-override >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
