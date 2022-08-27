@@ -9,6 +9,7 @@
 namespace Cmd;
 
 use Internal\Component\Workflow;
+use Internal\Factory\ComponentFactory;
 use Internal\Factory\SharedFactory;
 use Internal\Shared\Response\WebResponse;
 use Internal\Shared\Router;
@@ -68,5 +69,9 @@ class Web
         })(
             $workflow
         );
+
+        // reset factory
+        ComponentFactory::reset();
+        SharedFactory::reset();
     }
 }

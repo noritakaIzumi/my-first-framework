@@ -8,13 +8,8 @@
 
 namespace Internal\Factory;
 
-class SharedFactory implements MockInterface
+class SharedFactory extends BaseFactory implements MockInterface
 {
-    /**
-     * @var array<class-string, object>
-     */
-    private static array $mocks = [];
-
     /**
      * @inheritDoc
      */

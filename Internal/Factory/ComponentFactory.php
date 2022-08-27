@@ -8,13 +8,8 @@
 
 namespace Internal\Factory;
 
-class ComponentFactory implements MockInterface
+class ComponentFactory extends BaseFactory implements MockInterface
 {
-    /**
-     * @var array<class-string, object>
-     */
-    private static array $mocks = [];
-
     /**
      * @inheritDoc
      */
