@@ -6,5 +6,5 @@
  * Time: 02:06
  */
 
-const CONFIG_PATH = __DIR__;
 const HELPER_PATH = __DIR__ . '/../helper';
+const LOG_PATH = __DIR__ . '/../_log';

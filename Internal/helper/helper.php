@@ -6,14 +6,21 @@
  * Time: 02:56
  */
 
-function helper(string $name): void
-{
-    $override = HELPER_PATH . "/$name.php";
-    $base = __DIR__ . "/$name.php";
-    if (file_exists($override)) {
-        require_once $override;
-    }
-    if (file_exists($base)) {
-        require_once $base;
+if (function_exists('helper')) {
+    trigger_error('you cannot declare the function "helper".', E_USER_ERROR);
+} else {
+    function helper(string $name): void
+    {
+        $requireOnce = (static function (string $file): void {
+            if (file_exists($file)) {
+                require_once $file;
+            }
+        });
+
+        if (defined('HELPER_PATH')) {
+            $requireOnce(HELPER_PATH . "/$name.php");
+        }
+
+        $requireOnce(__DIR__ . "/$name.php");
     }
 }
