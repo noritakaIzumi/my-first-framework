@@ -8,6 +8,9 @@
 
 namespace Internal\Component;
 
+use Internal\Factory\SharedFactory;
+use Internal\Shared\Database\Database;
+
 abstract class AbstractJob
 {
     public ?self $next = null;
@@ -23,4 +26,9 @@ abstract class AbstractJob
     }
 
     abstract public function execute($artifacts, ...$args);
+
+    public function afterExecute(): void
+    {
+        SharedFactory::getInstance(Database::class)->disconnect();
+    }
 }

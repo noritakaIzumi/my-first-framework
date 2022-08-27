@@ -19,10 +19,12 @@ class Workflow
         $job = $this->head;
         if ($job !== null) {
             $this->artifacts = $job->execute(...$this->args);
+            $job->afterExecute();
             $job = $job->next;
         }
         while ($job !== null) {
             $this->artifacts = $job->execute($this->artifacts, ...$this->args);
+            $job->afterExecute();
             $job = $job->next;
         }
 
