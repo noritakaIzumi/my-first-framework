@@ -16,7 +16,7 @@ use Internal\Shared\Router;
 use Internal\Shared\Routes;
 use Internal\Shared\UrlParser;
 
-class Web
+class Web extends AbstractCmd
 {
     public array $paths = [];
     public string $entrypoint;
@@ -26,6 +26,7 @@ class Web
      */
     public function __construct(string $entrypoint)
     {
+        parent::__construct();
         $this->paths['ROOT_PATH'] = dirname($entrypoint);
         $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
     }
@@ -61,11 +62,11 @@ class Web
 
         // run
         (static function (Workflow $workflow): void {
-            $artifacts = $workflow->run();
+            $output = $workflow->run();
 
             /** @var WebResponse $response */
             $response = SharedFactory::getInstance(WebResponse::class);
-            $response->output($artifacts);
+            $response->output($output);
         })(
             $workflow
         );

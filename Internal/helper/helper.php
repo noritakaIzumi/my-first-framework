@@ -24,3 +24,5 @@ if (function_exists('helper')) {
         $requireOnce(__DIR__ . "/$name.php");
     }
 }
+
+require_once __DIR__ . '/common.php';

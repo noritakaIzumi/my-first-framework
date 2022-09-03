@@ -39,11 +39,15 @@ $routes->get(
     '/goodbye',
     [
         static function () {
-            return 'Mars';
+            // 次のクロージャに値を引き継ぎたい場合は artifacts インスタンスを取得してキーと値をセットします。
+            // ここでは planet というキーに "Mars" という値をセットします。
+            artifacts()->set('planet', 'Mars');
         },
-        // 前のクロージャーで出力した "Mars" を $artifacts で受け取り "Goodbye Mars." と出力します。
-        static function ($artifacts) {
-            return "Goodbye $artifacts.";
+        // 前のクロージャーで artifacts にセットした値 "Mars" を受け取り "Goodbye Mars." と出力します。
+        static function () {
+            $planet = artifacts()->get('planet');
+
+            return "Goodbye $planet.";
         }
     ]
 );

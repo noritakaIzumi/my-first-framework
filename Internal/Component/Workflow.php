@@ -12,22 +12,17 @@ class Workflow
 {
     public ?AbstractJob $head = null;
     public array $args = [];
-    public mixed $artifacts = '';
+    public mixed $output = '';
 
     public function run(): mixed
     {
         $job = $this->head;
-        if ($job !== null) {
-            $this->artifacts = $job->execute(...$this->args);
-            $job->afterExecute();
-            $job = $job->next;
-        }
         while ($job !== null) {
-            $this->artifacts = $job->execute($this->artifacts, ...$this->args);
+            $this->output = $job->execute(...$this->args);
             $job->afterExecute();
             $job = $job->next;
         }
 
-        return $this->artifacts;
+        return $this->output;
     }
 }

@@ -40,12 +40,12 @@ class WebResponse implements ResponseInterface
         $this->setHeader("Content-Type: $contentType");
     }
 
-    public function output(mixed $artifacts): void
+    public function output(mixed $value): void
     {
         $output = match (true) {
-            is_object($artifacts) || is_array($artifacts) => json_encode($artifacts, JSON_THROW_ON_ERROR),
-            !is_string($artifacts) => (string)$artifacts,
-            default => $artifacts,
+            is_object($value) || is_array($value) => json_encode($value, JSON_THROW_ON_ERROR),
+            !is_string($value) => (string)$value,
+            default => $value,
         };
 
         foreach ($this->headers as $header) {

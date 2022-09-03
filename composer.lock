@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f76bfd694883ece66bb8a76cc93adc2",
+    "content-hash": "aeae70a71f557a774025d723ea94b025",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -244,6 +244,61 @@
                 }
             ],
             "time": "2022-07-24T12:00:55+00:00"
+        },
+        {
+            "name": "pharaonic/php-dot-array",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Pharaonic/php-dot-array.git",
+                "reference": "394edf46a6c40430a13f38f4189cdccff9696573"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/394edf46a6c40430a13f38f4189cdccff9696573",
+                "reference": "394edf46a6c40430a13f38f4189cdccff9696573",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helper.php"
+                ],
+                "psr-4": {
+                    "Pharaonic\\DotArray\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raggi",
+                    "email": "support@pharaonic.io"
+                }
+            ],
+            "description": "Access array data quickly/easily using dot-notation and asterisk.",
+            "keywords": [
+                "array",
+                "asterisk",
+                "dot notation",
+                "pharaonic",
+                "php",
+                "php array",
+                "php dot array"
+            ],
+            "support": {
+                "issues": "https://github.com/Pharaonic/php-dot-array/issues",
+                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.2"
+            },
+            "time": "2022-07-10T14:15:43+00:00"
         },
         {
             "name": "phpoption/phpoption",
