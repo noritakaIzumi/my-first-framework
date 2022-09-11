@@ -10,7 +10,6 @@ namespace Internal\Shared;
 
 use Internal\Component\MatchedPath;
 use Internal\Component\Workflow;
-use Internal\Factory\SharedFactory;
 
 class Router
 {
@@ -36,7 +35,7 @@ class Router
         };
 
         /** @var WorkflowBuilder $workflowBuilder */
-        $workflowBuilder = SharedFactory::getInstance(WorkflowBuilder::class);
+        $workflowBuilder = shared(WorkflowBuilder::class);
 
         return $workflowBuilder->build($matchedPath);
     }

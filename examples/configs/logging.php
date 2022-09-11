@@ -10,12 +10,11 @@
  * ロギング
  */
 
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Logging;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 
-$logging = SharedFactory::getInstance(Logging::class);
+$logging = shared(Logging::class);
 
 $logging->addLogger('default');
 $logging

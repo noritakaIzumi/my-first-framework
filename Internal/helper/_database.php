@@ -7,7 +7,6 @@
  */
 
 use Internal\Component\Database\Dbh;
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Database\Database;
 
 if (!function_exists('connectDatabase')) {
@@ -18,7 +17,7 @@ if (!function_exists('connectDatabase')) {
      */
     function connectDatabase(): Dbh
     {
-        $database = SharedFactory::getInstance(Database::class);
+        $database = shared(Database::class);
         $database->connect();
 
         return $database->connection->dbh;

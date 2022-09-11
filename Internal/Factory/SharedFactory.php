@@ -27,7 +27,7 @@ class SharedFactory extends BaseFactory implements MockInterface
             return self::$mocks[$className];
         }
 
-        $object = ComponentFactory::getInstance($className, $constructorArgs);
+        $object = component($className, $constructorArgs);
         self::injectMock($className, $object);
 
         return $object;

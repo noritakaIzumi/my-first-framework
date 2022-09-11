@@ -8,7 +8,6 @@
 
 namespace Internal\Shared;
 
-use Internal\Factory\ComponentFactory;
 use Monolog\Logger;
 
 class Logging
@@ -24,7 +23,7 @@ class Logging
 
     public function addLogger(string $name): static
     {
-        $this->loggers[$name] = ComponentFactory::getInstance(Logger::class, [$name]);
+        $this->loggers[$name] = component(Logger::class, [$name]);
 
         return $this;
     }

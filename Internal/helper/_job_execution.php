@@ -8,8 +8,6 @@
 
 use Internal\Component\Job\Job;
 use Internal\Component\Job\JobInterface;
-use Internal\Factory\ComponentFactory;
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Artifacts;
 
 if (!function_exists('jobCreate')) {
@@ -32,7 +30,7 @@ if (!function_exists('jobCreate')) {
         }
 
         /** @var JobInterface $job */
-        $job = ComponentFactory::getInstance($jobClass);
+        $job = component($jobClass);
 
         return $job;
     }
@@ -46,6 +44,6 @@ if (!function_exists('artifacts')) {
      */
     function artifacts(): Artifacts
     {
-        return SharedFactory::getInstance(Artifacts::class);
+        return shared(Artifacts::class);
     }
 }

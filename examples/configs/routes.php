@@ -10,11 +10,10 @@
  * ルーティング
  */
 
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Routes;
 use Internal\Shared\Store\Request;
 
-$routes = SharedFactory::getInstance(Routes::class);
+$routes = shared(Routes::class);
 
 // ここからルーティングを書く
 
@@ -104,7 +103,7 @@ $routes->get(
         // "/request?year=2022&month=8&day=16" でアクセスすると "2022/8/16" を返します。
         // "/request" のようにパラメータがない場合は、第二引数に指定された値があればそれを返します。
         static function () {
-            $request = SharedFactory::getInstance(Request::class);
+            $request = shared(Request::class);
 
             $year = $request->get('year', 'unknown');
             $month = $request->get('month', 'unknown');

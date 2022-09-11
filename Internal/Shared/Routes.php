@@ -9,7 +9,6 @@
 namespace Internal\Shared;
 
 use Internal\Component\Route;
-use Internal\Factory\ComponentFactory;
 
 class Routes
 {
@@ -42,7 +41,7 @@ class Routes
     protected function add(string $method, string $pattern, array $callbacks, string $replacement): static
     {
         if (in_array($method, self::$allowedMethods, true)) {
-            $this->{$method}[$pattern] = ComponentFactory::getInstance(
+            $this->{$method}[$pattern] = component(
                 Route::class,
                 [$pattern, $callbacks, $replacement],
             );

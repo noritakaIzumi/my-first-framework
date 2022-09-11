@@ -9,7 +9,6 @@
 namespace Internal\Component\Job;
 
 use Internal\Component\BaseComponent;
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Database\Database;
 
 class Job extends BaseComponent implements JobInterface
@@ -53,6 +52,6 @@ class Job extends BaseComponent implements JobInterface
 
     protected function afterExecute(): void
     {
-        SharedFactory::getInstance(Database::class)->disconnect();
+        shared(Database::class)->disconnect();
     }
 }

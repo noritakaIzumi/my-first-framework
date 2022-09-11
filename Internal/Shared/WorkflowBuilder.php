@@ -11,14 +11,13 @@ namespace Internal\Shared;
 use Internal\Component\Job\JobInterface;
 use Internal\Component\MatchedPath;
 use Internal\Component\Workflow;
-use Internal\Factory\ComponentFactory;
 
 class WorkflowBuilder
 {
     public function build(MatchedPath $matchedPath): Workflow
     {
         /** @var Workflow $workflow */
-        $workflow = ComponentFactory::getInstance(Workflow::class);
+        $workflow = component(Workflow::class);
         $workflow->args = $matchedPath->firstArguments;
 
         while (true) {

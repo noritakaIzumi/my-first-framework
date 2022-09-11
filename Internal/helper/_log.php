@@ -6,7 +6,6 @@
  * Time: 20:01
  */
 
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Logging;
 use Monolog\Logger;
 
@@ -20,6 +19,6 @@ if (!function_exists('logger')) {
      */
     function logger(string $name = 'default'): Logger
     {
-        return SharedFactory::getInstance(Logging::class)->getLogger($name);
+        return shared(Logging::class)->getLogger($name);
     }
 }

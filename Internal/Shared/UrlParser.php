@@ -9,7 +9,6 @@
 namespace Internal\Shared;
 
 use Internal\Component\UrlComponents;
-use Internal\Factory\ComponentFactory;
 use RuntimeException;
 
 class UrlParser
@@ -36,7 +35,7 @@ class UrlParser
             throw new RuntimeException("request uri is invalid: $requestUri");
         }
 
-        return ComponentFactory::getInstance(
+        return component(
             UrlComponents::class,
             [$components['path'] ?? '', $components['query'] ?? '', $components['fragment'] ?? ''],
         );

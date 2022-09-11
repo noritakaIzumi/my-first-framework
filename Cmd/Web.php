@@ -42,7 +42,7 @@ class Web extends AbstractCmd
         // get normalized path
         $path = (function (string $requestUri): string {
             /** @var UrlParser $urlParser */
-            $urlParser = SharedFactory::getInstance(UrlParser::class);
+            $urlParser = shared(UrlParser::class);
 
             return $urlParser->parse($requestUri, $this->entrypoint)->getPath();
         })(
@@ -52,7 +52,7 @@ class Web extends AbstractCmd
         // get workflow by path
         $workflow = (static function (string $requestMethod, string $path): Workflow {
             /** @var Router $router */
-            $router = SharedFactory::getInstance(Router::class, [SharedFactory::getInstance(Routes::class)]);
+            $router = shared(Router::class, [shared(Routes::class)]);
 
             return $router->getWorkflow($requestMethod, $path);
         })(
@@ -65,7 +65,7 @@ class Web extends AbstractCmd
             $output = $workflow->run();
 
             /** @var WebResponse $response */
-            $response = SharedFactory::getInstance(WebResponse::class);
+            $response = shared(WebResponse::class);
             $response->output($output);
         })(
             $workflow

@@ -9,8 +9,6 @@
 namespace Internal\Shared\Database;
 
 use Internal\Component\Database\Connection;
-use Internal\Factory\ComponentFactory;
-use Internal\Factory\SharedFactory;
 
 class Database
 {
@@ -18,9 +16,9 @@ class Database
 
     public function connect(): static
     {
-        $connectionInfo = SharedFactory::getInstance(ConnectionInfo::class);
+        $connectionInfo = shared(ConnectionInfo::class);
         $connectionInfo->setFromEnv();
-        $this->connection = ComponentFactory::getInstance(Connection::class, [
+        $this->connection = component(Connection::class, [
             [
                 'type' => $connectionInfo->getType(),
                 'host' => $connectionInfo->getHost(),
