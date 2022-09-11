@@ -11,12 +11,24 @@ namespace Internal\Factory;
 interface MockInterface
 {
     /**
+     * クラスのインスタンスをモックするときはこのメソッドを使います。
+     *
      * @param string $className
      * @param object $mock
      *
      * @return void
      */
     public static function injectMock(string $className, object $mock): void;
+
+    /**
+     * クラスの定義をオーバーライドするときはこのメソッドを使います。
+     *
+     * @param string $className
+     * @param string $overrideClassName
+     *
+     * @return void
+     */
+    public static function overrideClass(string $className, string $overrideClassName): void;
 
     /**
      * @template _T

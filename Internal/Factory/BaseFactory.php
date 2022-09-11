@@ -14,9 +14,14 @@ abstract class BaseFactory
      * @var array<class-string, object>
      */
     protected static array $mocks = [];
+    /**
+     * @var array<class-string, class-string>
+     */
+    protected static array $overrides = [];
 
     public static function reset(): void
     {
         self::$mocks = [];
+        self::$overrides = [];
     }
 }
