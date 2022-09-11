@@ -23,6 +23,11 @@ if (function_exists('helper')) {
 
         $requireOnce(__DIR__ . "/$name.php");
     }
+
+    function preloadHelper(string $name): void
+    {
+        helper("_$name");
+    }
 }
 
-require_once __DIR__ . '/common.php';
+preloadHelper('common');
