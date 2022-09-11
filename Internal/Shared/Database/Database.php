@@ -8,19 +8,19 @@
 
 namespace Internal\Shared\Database;
 
-use Internal\Component\Database\Dbh;
+use Internal\Component\Database\Connection;
 use Internal\Factory\ComponentFactory;
 use Internal\Factory\SharedFactory;
 
 class Database
 {
-    public ?Dbh $dbh = null;
+    public ?Connection $connection = null;
 
     public function connect(): static
     {
         $connectionInfo = SharedFactory::getInstance(ConnectionInfo::class);
         $connectionInfo->setFromEnv();
-        $this->dbh = ComponentFactory::getInstance(Dbh::class, [
+        $this->connection = ComponentFactory::getInstance(Connection::class, [
             [
                 'type' => $connectionInfo->getType(),
                 'host' => $connectionInfo->getHost(),
@@ -35,7 +35,7 @@ class Database
 
     public function disconnect(): static
     {
-        $this->dbh = null;
+        $this->connection = null;
 
         return $this;
     }

@@ -10,7 +10,7 @@ namespace Internal\Component;
 
 use Internal\Component\Job\JobInterface;
 
-class Workflow
+class Workflow extends BaseComponent
 {
     public ?JobInterface $head = null;
     public array $args = [];

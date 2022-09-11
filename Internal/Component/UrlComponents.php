@@ -8,7 +8,7 @@
 
 namespace Internal\Component;
 
-class UrlComponents
+class UrlComponents extends BaseComponent
 {
     private string $path;
     private string $query;
@@ -21,6 +21,7 @@ class UrlComponents
      */
     public function __construct(string $path, string $query, string $fragment)
     {
+        parent::__construct();
         $this->path = $path;
         $this->query = $query;
         $this->fragment = $fragment;

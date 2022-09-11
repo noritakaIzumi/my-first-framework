@@ -8,7 +8,7 @@
 
 namespace Internal\Component;
 
-class Route
+class Route extends BaseComponent
 {
     public string $pattern;
     public array $callbacks;
@@ -21,6 +21,7 @@ class Route
      */
     public function __construct(string $pattern, array $callbacks, string $replacement)
     {
+        parent::__construct();
         $this->pattern = $pattern;
         $this->callbacks = $callbacks;
         $this->replacement = $replacement;

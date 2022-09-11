@@ -8,7 +8,7 @@
 
 namespace Internal\Component;
 
-class MatchedPath
+class MatchedPath extends BaseComponent
 {
     /**
      * @var array|callable[]
@@ -25,6 +25,7 @@ class MatchedPath
      */
     public function __construct(array $callbacks, array $first_arguments)
     {
+        parent::__construct();
         $this->callbacks = $callbacks;
         $this->firstArguments = $first_arguments;
     }

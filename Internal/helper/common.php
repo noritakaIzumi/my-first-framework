@@ -34,7 +34,8 @@ if (!function_exists('jobCreate')) {
             trigger_error("class $jobClass not exists", E_USER_ERROR);
         }
 
-        if (!($jobClass instanceof JobInterface)) {
+        $implements = class_implements($jobClass);
+        if (!isset($implements[JobInterface::class])) {
             trigger_error("class $jobClass does not implement JobInterface", E_USER_ERROR);
         }
 
@@ -72,7 +73,7 @@ if (!function_exists('connectDatabase')) {
         $database = SharedFactory::getInstance(Database::class);
         $database->connect();
 
-        return $database->dbh;
+        return $database->connection->dbh;
     }
 }
 

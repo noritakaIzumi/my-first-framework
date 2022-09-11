@@ -8,10 +8,11 @@
 
 namespace Internal\Component\Job;
 
+use Internal\Component\BaseComponent;
 use Internal\Factory\SharedFactory;
 use Internal\Shared\Database\Database;
 
-class Job implements JobInterface
+class Job extends BaseComponent implements JobInterface
 {
     /**
      * Next job
