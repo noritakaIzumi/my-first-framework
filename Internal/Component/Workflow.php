@@ -8,9 +8,11 @@
 
 namespace Internal\Component;
 
+use Internal\Component\Job\JobInterface;
+
 class Workflow
 {
-    public ?AbstractJob $head = null;
+    public ?JobInterface $head = null;
     public array $args = [];
     public mixed $output = '';
 
@@ -19,7 +21,6 @@ class Workflow
         $job = $this->head;
         while ($job !== null) {
             $this->output = $job->execute(...$this->args);
-            $job->afterExecute();
             $job = $job->next;
         }
 

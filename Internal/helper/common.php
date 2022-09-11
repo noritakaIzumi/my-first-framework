@@ -7,11 +7,43 @@
  */
 
 use Internal\Component\Database\Dbh;
+use Internal\Component\Job\Job;
+use Internal\Component\Job\JobInterface;
+use Internal\Factory\ComponentFactory;
 use Internal\Factory\SharedFactory;
 use Internal\Shared\Artifacts;
 use Internal\Shared\Database\Database;
 use Internal\Shared\Logging;
 use Monolog\Logger;
+
+/*
+ * job execution
+ */
+
+if (!function_exists('jobCreate')) {
+    /**
+     * @template _T
+     *
+     * @param class-string<_T> $jobClass
+     *
+     * @return _T
+     */
+    function jobCreate(string $jobClass = Job::class): JobInterface
+    {
+        if (!class_exists($jobClass)) {
+            trigger_error("class $jobClass not exists", E_USER_ERROR);
+        }
+
+        if (!($jobClass instanceof JobInterface)) {
+            trigger_error("class $jobClass does not implement JobInterface", E_USER_ERROR);
+        }
+
+        /** @var JobInterface $job */
+        $job = ComponentFactory::getInstance($jobClass);
+
+        return $job;
+    }
+}
 
 if (!function_exists('artifacts')) {
     /**

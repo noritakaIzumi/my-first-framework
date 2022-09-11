@@ -8,7 +8,7 @@
 
 namespace Internal\Shared;
 
-use Internal\Component\AbstractJob;
+use Internal\Component\Job\JobInterface;
 use Internal\Component\MatchedPath;
 use Internal\Component\Workflow;
 use Internal\Factory\ComponentFactory;
@@ -28,17 +28,8 @@ class WorkflowBuilder
             }
 
             $_job = match (true) {
-                $callback instanceof AbstractJob => $callback,
-                is_callable($callback) => new class($callback) extends AbstractJob {
-                    public function execute($artifacts, ...$args)
-                    {
-                        if ($this->func === null) {
-                            return [];
-                        }
-
-                        return call_user_func($this->func, $artifacts, ...$args);
-                    }
-                },
+                $callback instanceof JobInterface => $callback,
+                is_callable($callback) => jobCreate()->setScript($callback),
                 default => trigger_error('the component is not a job instance nor a callable', E_USER_ERROR),
             };
 
