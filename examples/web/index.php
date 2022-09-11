@@ -1,8 +1,8 @@
 <?php
 
-use Cmd\Web;
+use Cmd\WebCmd;
 
 require_once __DIR__ . '/../autoload.php';
 
-$web = new Web(__FILE__);
+$web = new WebCmd(__FILE__);
 $web->run($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

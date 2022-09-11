@@ -8,6 +8,10 @@
 
 namespace Cmd;
 
+use Internal\Component\Workflow;
+use Internal\Shared\Router;
+use Internal\Shared\Routes;
+
 abstract class AbstractCmd
 {
     public function __construct()
@@ -18,5 +22,13 @@ abstract class AbstractCmd
     protected function init(): void
     {
         set_error_handler('myErrorHandler');
+    }
+
+    protected function getWorkflow(string $requestMethod, string $path): Workflow
+    {
+        /** @var Router $router */
+        $router = shared(Router::class, [shared(Routes::class)]);
+
+        return $router->getWorkflow($requestMethod, $path);
     }
 }
