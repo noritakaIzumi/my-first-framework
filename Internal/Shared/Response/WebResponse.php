@@ -8,30 +8,11 @@
 
 namespace Internal\Shared\Response;
 
-use Internal\Component\Header;
 use Pkg\Json;
 
 class WebResponse implements ResponseInterface
 {
-    /**
-     * @var Header[]
-     */
-    public array $headers = [];
-
-    public function setHeader(string $header, bool $replace = true, int $responseCode = 0): void
-    {
-        $this->headers[] = component(Header::class)
-            ->setHeader($header)
-            ->setReplace($replace)
-            ->setResponseCode($responseCode);
-    }
-
-    public function setContentType(string $contentType): void
-    {
-        $this->setHeader("Content-Type: $contentType");
-    }
-
-    public function output(): void
+    public function respond(): void
     {
         $value = artifact()->get('output');
 
@@ -41,7 +22,7 @@ class WebResponse implements ResponseInterface
             default => $value,
         };
 
-        foreach ($this->headers as $header) {
+        foreach (httpHeader()->getHeaders() as $header) {
             header($header->header, $header->replace, $header->responseCode);
         }
         echo $output;

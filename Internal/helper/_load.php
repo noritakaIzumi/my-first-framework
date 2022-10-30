@@ -10,6 +10,7 @@ use Internal\Component\Artifact;
 use Internal\Factory\ComponentFactory;
 use Internal\Factory\SharedFactory;
 use Internal\Shared\Artifacts;
+use Internal\Shared\HttpHeader;
 use Internal\Shared\Routes;
 use Internal\Shared\Store\Request;
 
@@ -58,6 +59,13 @@ if (!function_exists('request')) {
     function request(): Request
     {
         return shared(Request::class);
+    }
+}
+
+if (!function_exists('httpHeader')) {
+    function httpHeader(): HttpHeader
+    {
+        return shared(HttpHeader::class);
     }
 }
 

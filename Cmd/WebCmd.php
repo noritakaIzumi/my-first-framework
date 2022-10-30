@@ -39,7 +39,7 @@ class WebCmd extends AbstractCmd
         $this->getWorkflow($requestMethod, $path)->run();
 
         // ワークフロー内から他のワークフローを呼び出すことを想定し、レスポンスは独立させる
-        shared(WebResponse::class)->output();
+        shared(WebResponse::class)->respond();
     }
 
     protected function getNormalizedPath(string $requestUri): string
