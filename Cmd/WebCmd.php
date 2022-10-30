@@ -16,17 +16,18 @@ use JsonException;
 
 class WebCmd extends AbstractCmd
 {
-    public array $paths = [];
     public string $entrypoint;
 
     /**
-     * @param string $entrypoint このクラスを実行するファイルパス。
+     * @param string $entrypoint
+     *
+     * @return WebCmd
      */
-    public function __construct(string $entrypoint)
+    public function setEntrypoint(string $entrypoint): WebCmd
     {
-        parent::__construct();
-        $this->paths['ROOT_PATH'] = dirname($entrypoint);
-        $this->entrypoint = preg_replace("#^{$this->paths['ROOT_PATH']}#", '', $entrypoint);
+        $this->entrypoint = $entrypoint;
+
+        return $this;
     }
 
     /**
@@ -54,9 +55,8 @@ class WebCmd extends AbstractCmd
 
     protected function getNormalizedPath(string $requestUri): string
     {
-        /** @var UrlParser $urlParser */
-        $urlParser = shared(UrlParser::class);
-
-        return $urlParser->parse($requestUri, $this->entrypoint)->getPath();
+        return shared(UrlParser::class)
+            ->parse($requestUri, $this->entrypoint)
+            ->getPath();
     }
 }

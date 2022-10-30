@@ -8,31 +8,21 @@
 
 namespace Internal\Shared\Response;
 
+use Internal\Component\Header;
+
 class WebResponse implements ResponseInterface
 {
-    public $headerStruct;
     /**
-     * @var array
+     * @var Header[]
      */
     public array $headers = [];
 
-    public function __construct()
-    {
-        $this->headerStruct = new class {
-            public string $header;
-            public bool $replace;
-            public int $responseCode;
-        };
-    }
-
     public function setHeader(string $header, bool $replace = true, int $responseCode = 0): void
     {
-        $struct = clone $this->headerStruct;
-        $struct->header = $header;
-        $struct->replace = $replace;
-        $struct->responseCode = $responseCode;
-
-        $this->headers[] = $struct;
+        $this->headers[] = component(Header::class)
+            ->setHeader($header)
+            ->setReplace($replace)
+            ->setResponseCode($responseCode);
     }
 
     public function setContentType(string $contentType): void
@@ -49,7 +39,6 @@ class WebResponse implements ResponseInterface
         };
 
         foreach ($this->headers as $header) {
-            $header instanceof $this->headerStruct or trigger_error('', E_USER_ERROR);
             header($header->header, $header->replace, $header->responseCode);
         }
         echo $output;
