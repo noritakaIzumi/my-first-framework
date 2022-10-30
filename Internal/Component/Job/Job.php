@@ -37,7 +37,7 @@ class Job extends BaseComponent implements JobInterface
         return $this;
     }
 
-    public function execute($artifacts, ...$args): mixed
+    public function execute(...$args): mixed
     {
         $this->beforeExecute();
         $output = call_user_func($this->func, ...func_get_args());

@@ -26,7 +26,7 @@ $routes->get(
     [
         // このようにクロージャーを用意して関数の返り値に指定すると、画面には "hello world" と表示されます。
         static function () {
-            artifacts()->set('output', 'Hello World.');
+            artifact()->set('output', 'Hello World.');
         },
     ],
 );
@@ -40,13 +40,13 @@ $routes->get(
         static function () {
             // 次のクロージャに値を引き継ぎたい場合は artifacts インスタンスを取得してキーと値をセットします。
             // ここでは planet というキーに "Mars" という値をセットします。
-            artifacts()->set('planet', 'Mars');
+            artifact()->set('planet', 'Mars');
         },
         // 前のクロージャーで artifacts にセットした値 "Mars" を受け取り "Goodbye Mars." と出力します。
         static function () {
-            $planet = artifacts()->get('planet');
+            $planet = artifact()->get('planet');
 
-            artifacts()->set('output', "Goodbye $planet.");
+            artifact()->set('output', "Goodbye $planet.");
         }
     ]
 );
@@ -60,7 +60,7 @@ $routes->get(
         // $firstName = "Jane", $lastName = "Doe" となります。
         static function (string $firstName = '', string $lastName = '') {
             // It produces "I'm Jane Doe. Please call me Jane."
-            artifacts()->set('output', "I'm $firstName $lastName. Please call me $firstName.");
+            artifact()->set('output', "I'm $firstName $lastName. Please call me $firstName.");
         },
     ]
 );
@@ -74,7 +74,7 @@ $routes
         [
             static function (string $id = '') {
                 // access to "/123", and returns "123".
-                artifacts()->set('output', $id);
+                artifact()->set('output', $id);
             },
         ]
     )
@@ -87,7 +87,7 @@ $routes
 
                 // access to "/jane/morning", and returns "Good morning, Jane."
                 // access to "/noah/evening", and returns "Good evening, Noah."
-                artifacts()->set('output', "Good $time, $name.");
+                artifact()->set('output', "Good $time, $name.");
             }
         ],
         // 第三引数は preg_replace の第二引数のように扱うことができます。
@@ -109,7 +109,7 @@ $routes->get(
             $month = $request->get('month', 'unknown');
             $day = $request->get('day', 'unknown');
 
-            artifacts()->set('output', "$year/$month/$day");
+            artifact()->set('output', "$year/$month/$day");
         },
     ],
 );
@@ -133,7 +133,7 @@ $routes->get(
              */
             logger()->info(json_encode($db->info(), JSON_THROW_ON_ERROR));
 
-            artifacts()->set('output', 'log output');
+            artifact()->set('output', 'log output');
         },
     ],
 );

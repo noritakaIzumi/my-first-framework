@@ -33,7 +33,7 @@ class WebResponse implements ResponseInterface
 
     public function output(): void
     {
-        $value = artifacts()->get('output');
+        $value = artifact()->get('output');
 
         $output = match (true) {
             is_object($value) || is_array($value) => Json::marshal($value),

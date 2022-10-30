@@ -6,6 +6,7 @@
  * Time: 19:57
  */
 
+use Internal\Component\Artifact;
 use Internal\Component\Job\Job;
 use Internal\Component\Job\JobInterface;
 use Internal\Shared\Artifacts;
@@ -36,14 +37,16 @@ if (!function_exists('jobCreate')) {
     }
 }
 
-if (!function_exists('artifacts')) {
+if (!function_exists('artifact')) {
     /**
      * アーティファクトを取得します。
      *
-     * @return Artifacts
+     * @param string $name
+     *
+     * @return Artifact
      */
-    function artifacts(): Artifacts
+    function artifact(string $name = 'default'): Artifact
     {
-        return shared(Artifacts::class);
+        return shared(Artifacts::class)->getArtifact($name);
     }
 }
