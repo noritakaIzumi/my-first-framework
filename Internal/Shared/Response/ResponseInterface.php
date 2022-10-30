@@ -10,5 +10,5 @@ namespace Internal\Shared\Response;
 
 interface ResponseInterface
 {
-    public function output(mixed $value): void;
+    public function output(): void;
 }

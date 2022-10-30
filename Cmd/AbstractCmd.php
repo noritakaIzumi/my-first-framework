@@ -9,6 +9,8 @@
 namespace Cmd;
 
 use Internal\Component\Workflow;
+use Internal\Factory\ComponentFactory;
+use Internal\Factory\SharedFactory;
 use Internal\Shared\Router;
 use Internal\Shared\Routes;
 
@@ -30,5 +32,16 @@ abstract class AbstractCmd
         $router = shared(Router::class, [shared(Routes::class)]);
 
         return $router->getWorkflow($requestMethod, $path);
+    }
+
+    /**
+     * reset factories.
+     *
+     * @return void
+     */
+    public function reset(): void
+    {
+        ComponentFactory::reset();
+        SharedFactory::reset();
     }
 }

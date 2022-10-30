@@ -8,11 +8,8 @@
 
 namespace Cmd;
 
-use Internal\Factory\ComponentFactory;
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Response\WebResponse;
 use Internal\Shared\UrlParser;
-use JsonException;
 
 class WebCmd extends AbstractCmd
 {
@@ -39,18 +36,10 @@ class WebCmd extends AbstractCmd
     public function run(string $requestMethod, string $requestUri): void
     {
         $path = $this->getNormalizedPath($requestUri);
-        $workflow = $this->getWorkflow($requestMethod, $path);
+        $this->getWorkflow($requestMethod, $path)->run();
 
-        $output = $workflow->run();
-        try {
-            shared(WebResponse::class)->output($output ?? '');
-        } catch (JsonException $e) {
-            logger()->error($e->getMessage());
-        }
-
-        // reset factory
-        ComponentFactory::reset();
-        SharedFactory::reset();
+        // ワークフロー内から他のワークフローを呼び出すことを想定し、レスポンスは独立させる
+        shared(WebResponse::class)->output();
     }
 
     protected function getNormalizedPath(string $requestUri): string

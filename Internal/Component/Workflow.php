@@ -14,16 +14,13 @@ class Workflow extends BaseComponent
 {
     public ?JobInterface $head = null;
     public array $args = [];
-    public mixed $output = '';
 
-    public function run(): mixed
+    public function run(): void
     {
         $job = $this->head;
         while ($job !== null) {
-            $this->output = $job->execute(...$this->args);
+            $job->execute(...$this->args);
             $job = $job->next;
         }
-
-        return $this->output;
     }
 }

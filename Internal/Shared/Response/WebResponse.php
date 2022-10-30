@@ -9,6 +9,7 @@
 namespace Internal\Shared\Response;
 
 use Internal\Component\Header;
+use Pkg\Json;
 
 class WebResponse implements ResponseInterface
 {
@@ -30,10 +31,12 @@ class WebResponse implements ResponseInterface
         $this->setHeader("Content-Type: $contentType");
     }
 
-    public function output(mixed $value): void
+    public function output(): void
     {
+        $value = artifacts()->get('output');
+
         $output = match (true) {
-            is_object($value) || is_array($value) => json_encode($value, JSON_THROW_ON_ERROR),
+            is_object($value) || is_array($value) => Json::marshal($value),
             !is_string($value) => (string)$value,
             default => $value,
         };

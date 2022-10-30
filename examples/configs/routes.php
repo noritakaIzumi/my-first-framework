@@ -26,7 +26,7 @@ $routes->get(
     [
         // このようにクロージャーを用意して関数の返り値に指定すると、画面には "hello world" と表示されます。
         static function () {
-            return 'Hello World.';
+            artifacts()->set('output', 'Hello World.');
         },
     ],
 );
@@ -46,7 +46,7 @@ $routes->get(
         static function () {
             $planet = artifacts()->get('planet');
 
-            return "Goodbye $planet.";
+            artifacts()->set('output', "Goodbye $planet.");
         }
     ]
 );
@@ -60,7 +60,7 @@ $routes->get(
         // $firstName = "Jane", $lastName = "Doe" となります。
         static function (string $firstName = '', string $lastName = '') {
             // It produces "I'm Jane Doe. Please call me Jane."
-            return "I'm $firstName $lastName. Please call me $firstName.";
+            artifacts()->set('output', "I'm $firstName $lastName. Please call me $firstName.");
         },
     ]
 );
@@ -74,7 +74,7 @@ $routes
         [
             static function (string $id = '') {
                 // access to "/123", and returns "123".
-                return $id;
+                artifacts()->set('output', $id);
             },
         ]
     )
@@ -87,7 +87,7 @@ $routes
 
                 // access to "/jane/morning", and returns "Good morning, Jane."
                 // access to "/noah/evening", and returns "Good evening, Noah."
-                return "Good $time, $name.";
+                artifacts()->set('output', "Good $time, $name.");
             }
         ],
         // 第三引数は preg_replace の第二引数のように扱うことができます。
@@ -109,7 +109,7 @@ $routes->get(
             $month = $request->get('month', 'unknown');
             $day = $request->get('day', 'unknown');
 
-            return "$year/$month/$day";
+            artifacts()->set('output', "$year/$month/$day");
         },
     ],
 );
@@ -133,7 +133,7 @@ $routes->get(
              */
             logger()->info(json_encode($db->info(), JSON_THROW_ON_ERROR));
 
-            return 'log output';
+            artifacts()->set('output', 'log output');
         },
     ],
 );

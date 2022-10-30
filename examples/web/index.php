@@ -8,3 +8,4 @@ $web = new WebCmd();
 $web
     ->setEntrypoint($_SERVER['SCRIPT_NAME'])
     ->run($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+$web->reset();
