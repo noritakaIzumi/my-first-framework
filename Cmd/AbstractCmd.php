@@ -28,10 +28,8 @@ abstract class AbstractCmd
 
     protected function getWorkflow(string $requestMethod, string $path): Workflow
     {
-        /** @var Router $router */
-        $router = shared(Router::class, [shared(Routes::class)]);
-
-        return $router->getWorkflow($requestMethod, $path);
+        return shared(Router::class, [shared(Routes::class)])
+            ->getWorkflow($requestMethod, $path);
     }
 
     /**

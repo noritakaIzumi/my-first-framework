@@ -16,7 +16,9 @@ class WebCmd extends AbstractCmd
     public string $entrypoint;
 
     /**
-     * @param string $entrypoint
+     * エントリポイントを設定します。
+     *
+     * @param string $entrypoint このクラスを呼び出すファイルの、ドキュメントルートからのパス。
      *
      * @return WebCmd
      */
