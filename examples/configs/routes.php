@@ -9,11 +9,7 @@
 /*
  * ルーティング
  */
-
-use Internal\Shared\Routes;
-use Internal\Shared\Store\Request;
-
-$routes = shared(Routes::class);
+$routes = routes();
 
 // ここからルーティングを書く
 
@@ -24,7 +20,9 @@ $routes = shared(Routes::class);
 $routes->get(
     '/hello',
     [
-        // このようにクロージャーを用意して関数の返り値に指定すると、画面には "hello world" と表示されます。
+        // このようにクロージャーを用意して処理を行います。
+        // HTTP 経由のアクセスの場合は、アーティファクトの output に設定したものが画面に出力されます。
+        // この場合は "Hello World." と出力されます。
         static function () {
             artifact()->set('output', 'Hello World.');
         },
@@ -103,7 +101,7 @@ $routes->get(
         // "/request?year=2022&month=8&day=16" でアクセスすると "2022/8/16" を返します。
         // "/request" のようにパラメータがない場合は、第二引数に指定された値があればそれを返します。
         static function () {
-            $request = shared(Request::class);
+            $request = request();
 
             $year = $request->get('year', 'unknown');
             $month = $request->get('month', 'unknown');
