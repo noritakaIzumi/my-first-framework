@@ -1,7 +1,10 @@
-before_script:
-  - bash ci/docker_install.sh > /dev/null
+default:
+  before_script:
+    - bash ci/docker_install.sh > /dev/null
 
 composer:
+  inherit:
+    default: false
   stage: build
   image: composer
   script:
