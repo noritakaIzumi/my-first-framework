@@ -9,6 +9,7 @@
 namespace Internal\Shared;
 
 use AbstractTestCase;
+use Closure;
 
 /**
  * @property Routes $routes
@@ -21,17 +22,37 @@ class RoutesTest extends AbstractTestCase
         $this->routes = routes();
     }
 
+    /**
+     * assert by hash of the closure
+     *
+     * @param Closure $expectedClosure
+     * @param string  $method
+     * @param string  $pattern
+     * @param int     $index
+     *
+     * @return void
+     */
+    protected function assertCallback(Closure $expectedClosure, string $method, string $pattern, int $index): void
+    {
+        $callbacks = match ($method) {
+            'get' => $this->routes->getGet(),
+            'post' => $this->routes->getPost(),
+            default => $this->fail("$method is invalid"),
+        };
+
+        $this->assertSame(
+            spl_object_id($expectedClosure),
+            spl_object_id($callbacks[$pattern]->getCallbacks()[$index]),
+        );
+    }
+
     public function test_getメソッドに追加(): void
     {
         $closure = static fn() => null;
 
         $this->routes->get('/', [$closure]);
 
-        // assert by hash of the closure
-        $this->assertSame(
-            spl_object_id($closure),
-            spl_object_id($this->routes->get['/']->getCallbacks()[0]),
-        );
+        $this->assertCallback($closure, 'get', '/', 0);
     }
 
     public function test_postメソッドに追加(): void
@@ -40,10 +61,7 @@ class RoutesTest extends AbstractTestCase
 
         $this->routes->post('/', [$closure]);
 
-        $this->assertSame(
-            spl_object_id($closure),
-            spl_object_id($this->routes->post['/']->getCallbacks()[0]),
-        );
+        $this->assertCallback($closure, 'post', '/', 0);
     }
 
     public function test_同じパターンを同じメソッドに複数回追加すると上書きされる(): void
@@ -54,9 +72,6 @@ class RoutesTest extends AbstractTestCase
         $this->routes->get('/', [$closure1]);
         $this->routes->get('/', [$closure2]);
 
-        $this->assertSame(
-            spl_object_id($closure2),
-            spl_object_id($this->routes->get['/']->getCallbacks()[0]),
-        );
+        $this->assertCallback($closure2, 'get', '/', 0);
     }
 }

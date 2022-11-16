@@ -10,6 +10,12 @@ namespace Internal\Shared;
 
 use Internal\Component\Route;
 
+/**
+ * ルーティングクラス。
+ *
+ * @method $this get(string $pattern, array $callbacks, string $replacement = '') GET メソッドのパターンを追加します。
+ * @method $this post(string $pattern, array $callbacks, string $replacement = '') POST メソッドのパターンを追加します。
+ */
 class Routes
 {
     protected static array $allowedMethods = [
@@ -17,46 +23,61 @@ class Routes
         'post',
     ];
 
-    /**
-     * GET パラメータ。
-     *
-     * @var Route[]
-     */
-    public array $get = [];
-    /**
-     * POST パラメータ。
-     *
-     * @var Route[]
-     */
-    public array $post = [];
+    protected array $get = [];
+    protected array $post = [];
 
     /**
-     * @param string $method
-     * @param string $pattern
-     * @param array  $callbacks
-     * @param string $replacement
+     * @return array
+     */
+    public function getGet(): array
+    {
+        return $this->get;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPost(): array
+    {
+        return $this->post;
+    }
+
+    /**
+     * ルーティングにパターンを追加します。
+     *
+     * @param string $method      メソッド名。
+     * @param string $pattern     URL パターン。
+     * @param array  $callbacks   処理。
+     * @param string $replacement URL と引数の置き換えパターン。
      *
      * @return $this
      */
-    protected function add(string $method, string $pattern, array $callbacks, string $replacement): static
+    protected function add(string $method, string $pattern, array $callbacks, string $replacement = ''): static
     {
-        if (in_array($method, self::$allowedMethods, true)) {
-            $this->{$method}[$pattern] = component(
-                Route::class,
-                [$pattern, $callbacks, $replacement],
-            );
-        }
+        $this->{$method} ??= [];
+
+        $this->{$method}[$pattern] = component(
+            Route::class,
+            [$pattern, $callbacks, $replacement],
+        );
 
         return $this;
     }
 
-    public function get(string $pattern, array $callbacks, string $replacement = ''): static
+    /**
+     * @param string $method リクエストメソッド
+     * @param array  $arguments
+     *
+     * @return $this
+     */
+    public function __call(string $method, array $arguments)
     {
-        return $this->add('get', $pattern, $callbacks, $replacement);
-    }
+        if (in_array($method, self::$allowedMethods, true)) {
+            $this->add($method, ...$arguments);
 
-    public function post(string $pattern, array $callbacks, string $replacement = ''): static
-    {
-        return $this->add('post', $pattern, $callbacks, $replacement);
+            return $this;
+        }
+
+        trigger_error("method $method is not allowed or supported.", E_USER_ERROR);
     }
 }
