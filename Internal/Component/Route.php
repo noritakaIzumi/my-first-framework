@@ -26,4 +26,28 @@ class Route extends BaseComponent
         $this->callbacks = $callbacks;
         $this->replacement = $replacement;
     }
+
+    /**
+     * @return string
+     */
+    public function getPattern(): string
+    {
+        return $this->pattern;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCallbacks(): array
+    {
+        return $this->callbacks;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReplacement(): string
+    {
+        return $this->replacement;
+    }
 }
