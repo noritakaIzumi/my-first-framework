@@ -1,6 +1,7 @@
 default:
   before_script:
     - bash ci/docker_install.sh > /dev/null
+    - bash ci/setup_php.sh > /dev/null
 
 composer:
   stage: build
@@ -20,7 +21,6 @@ test:8.1:
   variables:
     XDEBUG_MODE: coverage
   script:
-    - bash ci/setup_php.sh
     - phpunit --configuration phpunit.xml
   artifacts:
     paths:
