@@ -1,7 +1,14 @@
 before_script:
   - bash ci/docker_install.sh > /dev/null
 
+composer:
+  stage: build
+  image: composer
+  script:
+    - composer install
+
 test:8.1:
+  stage: test
   image: php:8.1
   script:
     - phpunit --configuration phpunit.xml
