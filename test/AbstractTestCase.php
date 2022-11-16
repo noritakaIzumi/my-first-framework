@@ -1,5 +1,7 @@
 <?php
 
+use Internal\Factory\ComponentFactory;
+use Internal\Factory\SharedFactory;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,5 +17,7 @@ class AbstractTestCase extends TestCase
         parent::tearDown();
 
         Mockery::close();
+        ComponentFactory::reset();
+        SharedFactory::reset();
     }
 }
