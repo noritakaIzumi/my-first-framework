@@ -3,15 +3,20 @@ default:
     - bash ci/docker_install.sh > /dev/null
 
 composer:
+  stage: build
   inherit:
     default: false
-  stage: build
+  artifacts:
+    untracked: true
   image: composer
   script:
     - composer install
 
 test:8.1:
   stage: test
+  dependencies:
+    - composer
   image: php:8.1
   script:
+    - ls -l ./vendor/autoload.php
     - phpunit --configuration phpunit.xml
