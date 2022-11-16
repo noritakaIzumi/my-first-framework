@@ -17,7 +17,11 @@ test:8.1:
   dependencies:
     - composer
   image: php:8.1
+  variables:
+    XDEBUG_MODE: coverage
   script:
     - bash ci/setup_php.sh
-    - ls -l ./vendor/autoload.php
     - phpunit --configuration phpunit.xml
+  artifacts:
+    paths:
+      - build/coverage/

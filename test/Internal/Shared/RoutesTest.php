@@ -12,7 +12,6 @@ use AbstractTestCase;
 
 /**
  * @property Routes $routes
- * @covers \Internal\Shared\Routes
  */
 class RoutesTest extends AbstractTestCase
 {
