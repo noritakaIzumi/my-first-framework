@@ -46,8 +46,8 @@ class Router
     protected function matchPath(string $requestMethod, string $path): MatchedPath
     {
         $routes = match ($requestMethod) {
-            'get' => $this->routes->get,
-            'post' => $this->routes->post,
+            'get' => $this->routes->getGet(),
+            'post' => $this->routes->getPost(),
             default => [],
         };
 
