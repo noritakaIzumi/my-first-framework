@@ -19,3 +19,6 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 ARG COMPOSER_BIN_DIR
 ENV PATH=$PATH:${COMPOSER_BIN_DIR}
 RUN apk add unzip
+
+COPY ./docker-php-entrypoint.sh /docker-php-entrypoint.sh
+ENTRYPOINT ["/docker-php-entrypoint.sh"]
