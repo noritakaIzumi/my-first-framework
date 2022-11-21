@@ -18,7 +18,9 @@ class WebCmdTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->cmd = (new WebCmd())->setEntrypoint('/index.php');
+        $this->cmd = (new WebCmd())
+            ->setEntrypoint('/index.php')
+            ->setGetQueryFromUrl(true);
         $this->routes = routes();
         ob_start();
     }
@@ -154,5 +156,36 @@ class WebCmdTest extends TestCase
 
         $this->cmd->run('get', '/noah/afternoon');
         $this->assertOutput('Good afternoon, Noah.');
+    }
+
+    /**
+     * リクエストパラメータは Request クラスから受け取ります。
+     *
+     * @return void
+     */
+    public function test_リクエストパラメータ(): void
+    {
+        $this->routes->get(
+            '/request',
+            [
+                // "/request?year=2022&month=8&day=16" でアクセスすると "2022/8/16" を返します。
+                // "/request" のようにパラメータがない場合は、第二引数に指定された値があればそれを返します。
+                static function () {
+                    $request = request();
+
+                    $year = $request->getGet('year', 'unknown');
+                    $month = $request->getGet('month', 'unknown');
+                    $day = $request->getGet('day', 'unknown');
+
+                    artifact()->set('output', "$year/$month/$day");
+                },
+            ],
+        );
+
+        $this->cmd->run('get', '/request?year=2022&month=8&day=16');
+        $this->assertOutput('2022/8/16');
+
+        $this->cmd->run('get', '/request');
+        $this->assertOutput('unknown/unknown/unknown');
     }
 }

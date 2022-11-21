@@ -9,11 +9,25 @@
 namespace Cmd;
 
 use Internal\Shared\Response\WebResponse;
+use Internal\Shared\Store\Request;
 use Internal\Shared\UrlParser;
+
+use function shared;
 
 class WebCmd extends AbstractCmd
 {
+    /**
+     * エントリポイント
+     *
+     * @var string
+     */
     public string $entrypoint;
+    /**
+     * GET パラメータを $_GET からではなく URL の解析によって取得する場合、これを true にする。
+     *
+     * @var bool
+     */
+    protected bool $getQueryFromUrl = false;
 
     /**
      * エントリポイントを設定します。
@@ -30,6 +44,20 @@ class WebCmd extends AbstractCmd
     }
 
     /**
+     * GET パラメータを $_GET からではなく URL の解析によって取得する場合、これを true にする。
+     *
+     * @param bool $getQueryFromUrl
+     *
+     * @return WebCmd
+     */
+    public function setGetQueryFromUrl(bool $getQueryFromUrl): WebCmd
+    {
+        $this->getQueryFromUrl = $getQueryFromUrl;
+
+        return $this;
+    }
+
+    /**
      * @param string $requestMethod
      * @param string $requestUri
      *
@@ -37,17 +65,18 @@ class WebCmd extends AbstractCmd
      */
     public function run(string $requestMethod, string $requestUri): void
     {
-        $path = $this->getNormalizedPath($requestUri);
+        $urlComponents = shared(UrlParser::class)->parse($requestUri, $this->entrypoint);
+
+        if ($this->getQueryFromUrl) {
+            parse_str($urlComponents->getQuery(), $result);
+            shared(Request::class)->setGet($result);
+        }
+
+        $path = $urlComponents->getPath();
         $this->getWorkflow($requestMethod, $path)->run();
 
         // ワークフロー内から他のワークフローを呼び出すことを想定し、レスポンスは独立させる
         shared(WebResponse::class)->respond();
     }
 
-    protected function getNormalizedPath(string $requestUri): string
-    {
-        return shared(UrlParser::class)
-            ->parse($requestUri, $this->entrypoint)
-            ->getPath();
-    }
 }

@@ -36,7 +36,7 @@ class Request extends AbstractParameterStore
      *
      * @return mixed キーに対応する値。キーを指定しない場合 GET パラメータそのもの。
      */
-    public function get(?string $key = null, mixed $default = null): mixed
+    public function getGet(?string $key = null, mixed $default = null): mixed
     {
         return self::getDictValueByKey($this->_get, $key, $default);
     }
@@ -49,7 +49,7 @@ class Request extends AbstractParameterStore
      *
      * @return mixed キーに対応する値。キーを指定しない場合 POST パラメータそのもの。
      */
-    public function post(?string $key = null, mixed $default = null): mixed
+    public function getPost(?string $key = null, mixed $default = null): mixed
     {
         return self::getDictValueByKey($this->_post, $key, $default);
     }
@@ -62,9 +62,33 @@ class Request extends AbstractParameterStore
      *
      * @return mixed キーに対応する値。キーを指定しない場合 REQUEST パラメータそのもの。
      */
-    public function request(?string $key = null, mixed $default = null): mixed
+    public function getRequest(?string $key = null, mixed $default = null): mixed
     {
         return self::getDictValueByKey($this->_request, $key, $default);
+    }
+
+    /**
+     * @param array|null $get
+     */
+    public function setGet(?array $get): void
+    {
+        $this->_get = $get;
+    }
+
+    /**
+     * @param array|null $post
+     */
+    public function setPost(?array $post): void
+    {
+        $this->_post = $post;
+    }
+
+    /**
+     * @param array|null $request
+     */
+    public function setRequest(?array $request): void
+    {
+        $this->_request = $request;
     }
 
     public function reset(): void

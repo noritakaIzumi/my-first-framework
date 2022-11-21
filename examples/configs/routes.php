@@ -103,9 +103,9 @@ $routes->get(
         static function () {
             $request = request();
 
-            $year = $request->get('year', 'unknown');
-            $month = $request->get('month', 'unknown');
-            $day = $request->get('day', 'unknown');
+            $year = $request->getGet('year', 'unknown');
+            $month = $request->getGet('month', 'unknown');
+            $day = $request->getGet('day', 'unknown');
 
             artifact()->set('output', "$year/$month/$day");
         },
