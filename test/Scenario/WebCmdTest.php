@@ -6,6 +6,8 @@
  * Time: 18:20
  */
 
+namespace Scenario;
+
 use Cmd\WebCmd;
 use Internal\Shared\Routes;
 use PHPUnit\Framework\TestCase;
