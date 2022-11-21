@@ -10,6 +10,5 @@ namespace Internal\Component\Job;
 
 interface JobInterface
 {
-    public function setScript(?callable $func): self;
     public function execute(...$args);
 }
