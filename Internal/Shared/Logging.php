@@ -30,6 +30,10 @@ class Logging
 
     public function getLogger(string $name): Logger
     {
+        if (!isset($this->loggers[$name])) {
+            $this->addLogger($name);
+        }
+
         return $this->loggers[$name];
     }
 }
