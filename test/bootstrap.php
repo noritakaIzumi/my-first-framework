@@ -8,3 +8,6 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../examples/autoload.php';
+
+// Display errors in test
+ini_set('display_errors', 1);
