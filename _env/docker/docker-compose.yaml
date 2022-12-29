@@ -13,6 +13,12 @@ services:
       - type: bind
         source: ../..
         target: /usr/local/apache2/${APP_NAME}
+      - type: bind
+        source: ./httpd/httpd.conf
+        target: /usr/local/apache2/conf/httpd.conf
+      - type: bind
+        source: ./httpd/httpd-vhosts.conf
+        target: /usr/local/apache2/conf/extra/httpd-vhosts.conf
     environment:
       - APP_NAME
       - APP_HOST
@@ -31,6 +37,9 @@ services:
       - type: bind
         source: ../..
         target: /usr/local/apache2/${APP_NAME}
+      - type: bind
+        source: ./php/php.ini
+        target: /usr/local/etc/php/php.ini
     working_dir: /usr/local/apache2/${APP_NAME}
   db:
     build:

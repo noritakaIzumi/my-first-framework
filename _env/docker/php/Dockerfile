@@ -1,9 +1,8 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}-fpm-alpine
 
-COPY php.ini /usr/local/etc/php/php.ini
-
 RUN apk update \
+    && apk add --update linux-headers \
     && apk add $PHPIZE_DEPS libpq-dev \
     && pecl channel-update pecl.php.net \
     && pecl install xdebug \
