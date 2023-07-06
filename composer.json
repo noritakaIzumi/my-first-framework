@@ -32,6 +32,7 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "Support\\Factory\\": "test/Support/Factory",
       "Internal\\": "test/Internal"
     },
     "files": [

@@ -8,8 +8,6 @@
 
 namespace Internal\Factory;
 
-use Internal\Component\BaseComponent;
-
 class ComponentFactory extends BaseFactory implements MockInterface
 {
     /**
@@ -33,19 +31,14 @@ class ComponentFactory extends BaseFactory implements MockInterface
      */
     public static function getInstance(string $className, array $constructorArgs = []): object
     {
-        if (!isset(self::$mocks[$className])) {
-            return new $className(...$constructorArgs);
+        if (isset(self::$mocks[$className])) {
+            return clone self::$mocks[$className];
         }
 
         if (isset(self::$overrides[$className])) {
             $className = self::$overrides[$className];
         }
 
-        $class = clone self::$mocks[$className];
-        if ($class instanceof BaseComponent && !$class->isConstructorExecuted()) {
-            $class->__construct(...$constructorArgs);
-        }
-
-        return $class;
+        return new $className(...$constructorArgs);
     }
 }
