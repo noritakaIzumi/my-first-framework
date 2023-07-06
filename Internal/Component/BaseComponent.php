@@ -10,18 +10,7 @@ namespace Internal\Component;
 
 abstract class BaseComponent
 {
-    private bool $constructorExecuted;
-
     public function __construct()
     {
-        $this->constructorExecuted = true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isConstructorExecuted(): bool
-    {
-        return isset($this->constructorExecuted);
     }
 }
