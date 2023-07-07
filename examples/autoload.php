@@ -6,18 +6,14 @@
  * Time: 04:35
  */
 
-/*
- * overwrite php.ini
- */
-ini_set('display_errors', 0);
-ini_set('error_log', __DIR__ . '/_log/php_error.log');
+
+use Internal\Initializer;
 
 /*
  * load files
  */
-require_once __DIR__ . '/../vendor/autoload.php';
-
 require_once __DIR__ . '/path.php';
+shared(Initializer::class)->run();
 foreach (glob(CONFIG_PATH . '/*.php') as $filepath) {
     require_once $filepath;
 }

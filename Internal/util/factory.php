@@ -1,42 +1,10 @@
 <?php
 
 use Internal\Component\Artifact;
-use Internal\Factory\ComponentFactory;
-use Internal\Factory\SharedFactory;
 use Internal\Shared\Artifacts;
 use Internal\Shared\HttpHeader;
 use Internal\Shared\Routes;
 use Internal\Shared\Store\Request;
-
-/**
- * Shared サービスを読み込みます。
- *
- * @template _T
- *
- * @param class-string<_T> $className クラス名
- * @param array $constructorArgs コンストラクタの引数
- *
- * @return _T
- */
-function shared(string $className, array $constructorArgs = []): object
-{
-    return SharedFactory::getInstance($className, $constructorArgs);
-}
-
-/**
- * Component を読み込みます。
- *
- * @template _T
- *
- * @param class-string<_T> $className クラス名
- * @param array $constructorArgs コンストラクタの引数
- *
- * @return _T
- */
-function component(string $className, array $constructorArgs = []): object
-{
-    return ComponentFactory::getInstance($className, $constructorArgs);
-}
 
 /*
  * shared
