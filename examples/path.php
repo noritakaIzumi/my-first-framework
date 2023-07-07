@@ -9,5 +9,4 @@
 const CONFIG_PATH = __DIR__ . '/configs';
 const SYSTEM_PATH = __DIR__ . '/..';
 const APP_PATH = __DIR__;
-const HELPER_PATH = __DIR__ . '/helper';
 const LOG_PATH = __DIR__ . '/_log';

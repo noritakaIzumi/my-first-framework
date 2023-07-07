@@ -18,9 +18,6 @@ ini_set('error_log', __DIR__ . '/_log/php_error.log');
 require_once __DIR__ . '/../vendor/autoload.php';
 
 require_once __DIR__ . '/path.php';
-foreach (require CONFIG_PATH . '/helper.php' as $name) {
-    helper($name);
-}
 foreach (glob(CONFIG_PATH . '/*.php') as $filepath) {
     require_once $filepath;
 }

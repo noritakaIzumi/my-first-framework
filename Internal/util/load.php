@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: norit
- * Date: 2022/09/11
- * Time: 20:04
- */
 
 use Internal\Component\Artifact;
 use Internal\Factory\ComponentFactory;
@@ -19,8 +13,8 @@ use Internal\Shared\Store\Request;
  *
  * @template _T
  *
- * @param class-string<_T> $className       クラス名
- * @param array            $constructorArgs コンストラクタの引数
+ * @param class-string<_T> $className クラス名
+ * @param array $constructorArgs コンストラクタの引数
  *
  * @return _T
  */
@@ -34,8 +28,8 @@ function shared(string $className, array $constructorArgs = []): object
  *
  * @template _T
  *
- * @param class-string<_T> $className       クラス名
- * @param array            $constructorArgs コンストラクタの引数
+ * @param class-string<_T> $className クラス名
+ * @param array $constructorArgs コンストラクタの引数
  *
  * @return _T
  */

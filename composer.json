@@ -27,7 +27,7 @@
       "Cmd\\": "Cmd"
     },
     "files": [
-      "Internal/helper/helper.php"
+      "Internal/util.php"
     ]
   },
   "autoload-dev": {

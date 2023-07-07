@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: norit
- * Date: 2022/09/11
- * Time: 19:57
- */
 
 use Internal\Component\Job\Job;
 use Internal\Component\Job\JobInterface;

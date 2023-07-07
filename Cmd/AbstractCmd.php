@@ -31,7 +31,6 @@ abstract class AbstractCmd
             'SYSTEM_PATH',
             'CONFIG_PATH',
             'LOG_PATH',
-            'HELPER_PATH',
         ];
         foreach ($constantNames as $constantName) {
             if (!defined($constantName)) {
