@@ -6,14 +6,12 @@
  * Time: 04:35
  */
 
-
 use Internal\Initializer;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/path.php';
 
 /*
  * load files
  */
-require_once __DIR__ . '/path.php';
 shared(Initializer::class)->run();
-foreach (glob(CONFIG_PATH . '/*.php') as $filepath) {
-    require_once $filepath;
-}
