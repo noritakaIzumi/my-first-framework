@@ -42,6 +42,9 @@ class Initializer
             require_once $file;
         }
 
+        // error handler
+        set_error_handler('myErrorHandler');
+
         // setup default logging
         $logging = shared(Logging::class);
         $logging->addLogger('default');

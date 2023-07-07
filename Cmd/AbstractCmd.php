@@ -24,7 +24,6 @@ abstract class AbstractCmd
 
     protected function init(): void
     {
-        set_error_handler('myErrorHandler');
     }
 
     protected function getWorkflow(string $requestMethod, string $path): Workflow
