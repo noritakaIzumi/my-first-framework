@@ -21,7 +21,7 @@ class WebCmd extends AbstractCmd
      *
      * @var string
      */
-    public string $entrypoint;
+    protected string $entrypoint;
     /**
      * GET パラメータを $_GET からではなく URL の解析によって取得する場合、これを true にする。
      *
@@ -30,17 +30,12 @@ class WebCmd extends AbstractCmd
     protected bool $getQueryFromUrl = false;
 
     /**
-     * エントリポイントを設定します。
-     *
-     * @param string $entrypoint このクラスを呼び出すファイルの、ドキュメントルートからのパス。
-     *
-     * @return WebCmd
+     * @param string $entrypoint
      */
-    public function setEntrypoint(string $entrypoint): WebCmd
+    public function __construct(string $entrypoint)
     {
+        parent::__construct();
         $this->entrypoint = $entrypoint;
-
-        return $this;
     }
 
     /**

@@ -20,9 +20,7 @@ class WebCmdTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->cmd = (new WebCmd())
-            ->setEntrypoint('/index.php')
-            ->setGetQueryFromUrl(true);
+        $this->cmd = cmd(WebCmd::class, ['/index.php'])->setGetQueryFromUrl(true);
         $this->routes = routes();
         ob_start();
     }
