@@ -1,3 +1,6 @@
+variables:
+  DEBCONF_NOWARNINGS: "yes"
+
 default:
   before_script:
     - bash ci/docker_install.sh > /dev/null
