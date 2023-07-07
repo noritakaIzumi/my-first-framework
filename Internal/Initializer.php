@@ -20,8 +20,8 @@ class Initializer
     {
         // required constants
         $constantNames = [
+            'ROOT_PATH',
             'APP_PATH',
-            'SYSTEM_PATH',
             'LOG_PATH',
         ];
         foreach ($constantNames as $constantName) {

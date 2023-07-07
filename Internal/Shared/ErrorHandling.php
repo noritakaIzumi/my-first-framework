@@ -16,7 +16,7 @@ class ErrorHandling
 
         $errstr = htmlspecialchars($errstr);
         $errfile = preg_replace('#^' . realpath(APP_PATH) . '#', 'APP_PATH', $errfile);
-        $errfile = preg_replace('#^' . realpath(SYSTEM_PATH) . '#', 'SYSTEM_PATH', $errfile);
+        $errfile = preg_replace('#^' . realpath(ROOT_PATH) . '#', 'ROOT_PATH', $errfile);
 
         $errLevelStr = preg_match('/^E[A-Z_]*_([A-Z]+)$/', $this->friendlyErrorType($errno), $matches) ? $matches[1] : '';
         $logger = logger();
