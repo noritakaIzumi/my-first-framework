@@ -21,9 +21,9 @@ class ComponentFactory extends BaseFactory implements MockInterface
     /**
      * @inheritDoc
      */
-    public static function overrideClass(string $className, string $overrideClassName): void
+    public static function overloadClass(string $className, string $overloadClassName): void
     {
-        self::$overrides[$className] = $overrideClassName;
+        self::$overloads[$className] = $overloadClassName;
     }
 
     /**
@@ -35,8 +35,8 @@ class ComponentFactory extends BaseFactory implements MockInterface
             return clone self::$mocks[$className];
         }
 
-        if (isset(self::$overrides[$className])) {
-            $className = self::$overrides[$className];
+        if (isset(self::$overloads[$className])) {
+            $className = self::$overloads[$className];
         }
 
         return new $className(...$constructorArgs);

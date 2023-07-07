@@ -4,7 +4,7 @@ namespace Factory;
 
 use AbstractTestCase;
 use Internal\Factory\SharedFactory;
-use Support\Factory\OverrideComponent;
+use Support\Factory\OverloadComponent;
 use Support\Factory\PureComponent;
 
 class SharedFactoryTest extends AbstractTestCase
@@ -40,18 +40,18 @@ class SharedFactoryTest extends AbstractTestCase
 
     public function testGetInstance__クラスのみを登録して1度呼び出した場合、そのクラスのインスタンスが返される()
     {
-        SharedFactory::overrideClass(PureComponent::class, OverrideComponent::class);
+        SharedFactory::overloadClass(PureComponent::class, OverloadComponent::class);
         $obj = shared(PureComponent::class);
-        $this->assertSame('override component', $obj->func());
+        $this->assertSame('overload component', $obj->func());
     }
 
     public function testGetInstance__クラスのみを登録して2度呼び出した場合、返されるインスタンスは同一のものである()
     {
-        SharedFactory::overrideClass(PureComponent::class, OverrideComponent::class);
+        SharedFactory::overloadClass(PureComponent::class, OverloadComponent::class);
         $obj1 = shared(PureComponent::class);
         $obj2 = shared(PureComponent::class);
-        $this->assertSame('override component', $obj1->func());
-        $this->assertSame('override component', $obj2->func());
+        $this->assertSame('overload component', $obj1->func());
+        $this->assertSame('overload component', $obj2->func());
         $this->assertTrue(spl_object_hash($obj1) === spl_object_hash($obj2));
     }
 }

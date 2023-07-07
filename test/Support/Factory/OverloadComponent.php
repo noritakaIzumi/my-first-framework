@@ -2,10 +2,10 @@
 
 namespace Support\Factory;
 
-class OverrideComponent extends PureComponent
+class OverloadComponent extends PureComponent
 {
     public function func(): string
     {
-        return 'override component';
+        return 'overload component';
     }
 }

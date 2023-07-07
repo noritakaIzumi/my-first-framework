@@ -21,14 +21,14 @@ interface MockInterface
     public static function injectMock(string $className, object $mock): void;
 
     /**
-     * クラスの定義をオーバーライドするときはこのメソッドを使います。
+     * クラスの定義をオーバーロードするときはこのメソッドを使います。
      *
      * @param string $className
-     * @param string $overrideClassName
+     * @param string $overloadClassName
      *
      * @return void
      */
-    public static function overrideClass(string $className, string $overrideClassName): void;
+    public static function overloadClass(string $className, string $overloadClassName): void;
 
     /**
      * @template _T

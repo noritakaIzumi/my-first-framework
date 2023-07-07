@@ -17,11 +17,11 @@ abstract class BaseFactory
     /**
      * @var array<class-string, class-string>
      */
-    protected static array $overrides = [];
+    protected static array $overloads = [];
 
     public static function reset(): void
     {
         self::$mocks = [];
-        self::$overrides = [];
+        self::$overloads = [];
     }
 }

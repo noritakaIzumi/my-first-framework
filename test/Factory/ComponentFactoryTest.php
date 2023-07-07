@@ -4,7 +4,7 @@ namespace Factory;
 
 use AbstractTestCase;
 use Internal\Factory\ComponentFactory;
-use Support\Factory\OverrideComponent;
+use Support\Factory\OverloadComponent;
 use Support\Factory\PureComponent;
 
 class ComponentFactoryTest extends AbstractTestCase
@@ -30,8 +30,8 @@ class ComponentFactoryTest extends AbstractTestCase
 
     public function testGetInstance__クラスのみを登録した場合、そのクラスのインスタンスが返される()
     {
-        ComponentFactory::overrideClass(PureComponent::class, OverrideComponent::class);
+        ComponentFactory::overloadClass(PureComponent::class, OverloadComponent::class);
         $component = component(PureComponent::class);
-        $this->assertSame('override component', $component->func());
+        $this->assertSame('overload component', $component->func());
     }
 }
