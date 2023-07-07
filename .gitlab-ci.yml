@@ -21,7 +21,7 @@ test:8.1:
   variables:
     XDEBUG_MODE: coverage
   script:
-    - phpunit --configuration phpunit.xml
+    - vendor/bin/phpunit --configuration phpunit.xml
   artifacts:
     paths:
       - build/coverage/
