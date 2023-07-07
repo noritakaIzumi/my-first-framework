@@ -36,10 +36,10 @@ class SharedFactory extends BaseFactory implements MockInterface
         }
 
         if (isset(self::$overrides[$className])) {
-            $className = self::$overrides[$className];
+            $overrideClassName = self::$overrides[$className];
         }
 
-        $object = component($className, $constructorArgs);
+        $object = component($overrideClassName ?? $className, $constructorArgs);
         self::injectMock($className, $object);
 
         return $object;
