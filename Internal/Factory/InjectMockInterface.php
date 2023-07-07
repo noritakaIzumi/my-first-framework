@@ -8,7 +8,7 @@
 
 namespace Internal\Factory;
 
-interface MockInterface
+interface InjectMockInterface
 {
     /**
      * クラスのインスタンスをモックするときはこのメソッドを使います。
@@ -19,16 +19,6 @@ interface MockInterface
      * @return void
      */
     public static function injectMock(string $className, object $mock): void;
-
-    /**
-     * クラスの定義をオーバーロードするときはこのメソッドを使います。
-     *
-     * @param string $className
-     * @param string $overloadClassName
-     *
-     * @return void
-     */
-    public static function overloadClass(string $className, string $overloadClassName): void;
 
     /**
      * @template _T

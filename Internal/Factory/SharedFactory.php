@@ -8,7 +8,7 @@
 
 namespace Internal\Factory;
 
-class SharedFactory extends BaseFactory implements MockInterface
+class SharedFactory extends BaseFactory implements InjectMockInterface, OverloadClassInterface
 {
     /**
      * @inheritDoc
