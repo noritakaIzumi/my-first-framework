@@ -25,18 +25,6 @@ abstract class AbstractCmd
     protected function init(): void
     {
         set_error_handler('myErrorHandler');
-
-        $constantNames = [
-            'APP_PATH',
-            'SYSTEM_PATH',
-            'CONFIG_PATH',
-            'LOG_PATH',
-        ];
-        foreach ($constantNames as $constantName) {
-            if (!defined($constantName)) {
-                throw new RuntimeException("the config $constantName is not set.");
-            }
-        }
     }
 
     protected function getWorkflow(string $requestMethod, string $path): Workflow
