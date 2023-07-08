@@ -30,6 +30,6 @@ class Initializer
             ->custom();
 
         // load routes
-        require_once paths()->app . '/routes.php';
+        require_once paths()->config . '/routes.php';
     }
 }

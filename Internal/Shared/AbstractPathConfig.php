@@ -7,6 +7,7 @@ use RuntimeException;
 /**
  * @property string $root リポジトリのルートディレクトリ
  * @property string $app アプリケーションディレクトリ
+ * @property string $config コンフィグディレクトリ
  * @property string $log ログディレクトリ
  */
 abstract class AbstractPathConfig
@@ -44,6 +45,13 @@ abstract class AbstractPathConfig
      * @noinspection PhpUnused
      */
     abstract protected function _app(): string;
+
+    /**
+     * コンフィグディレクトリ
+     * @return non-empty-string
+     * @noinspection PhpUnused
+     */
+    abstract protected function _config(): string;
 
     /**
      * ログディレクトリ

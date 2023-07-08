@@ -11,7 +11,7 @@ class PathConfig extends AbstractPathConfig
      */
     protected function _root(): string
     {
-        return __DIR__ . '/..';
+        return __DIR__ . '/../..';
     }
 
     /**
@@ -19,7 +19,15 @@ class PathConfig extends AbstractPathConfig
      */
     protected function _app(): string
     {
-        return __DIR__ . '/../examples';
+        return __DIR__ . '/..';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _config(): string
+    {
+        return __DIR__ . '/../config';
     }
 
     /**
@@ -27,6 +35,6 @@ class PathConfig extends AbstractPathConfig
      */
     protected function _log(): string
     {
-        return __DIR__ . '/../examples/_log';
+        return __DIR__ . '/../_log';
     }
 }
