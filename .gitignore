@@ -2,7 +2,7 @@
 /.idea
 /.vscode
 
-# composer
+# composer packages
 /vendor
 
 # phpunit

@@ -1,0 +1,21 @@
+{
+  "name": "noritaka_izumi/examples",
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "..",
+      "options": {
+        "symlink": false
+      }
+    }
+  ],
+  "require": {
+    "noritaka_izumi/my-first-framework": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Internal\\": "Internal"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mock;
+namespace Internal;
 
 use Internal\Shared\AbstractPathConfig;
 
