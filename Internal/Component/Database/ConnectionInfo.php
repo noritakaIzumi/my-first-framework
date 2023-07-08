@@ -6,7 +6,7 @@
  * Time: 01:45
  */
 
-namespace Internal\Shared\Database;
+namespace Internal\Component\Database;
 
 use Dotenv\Dotenv;
 

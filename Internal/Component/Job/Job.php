@@ -52,6 +52,6 @@ class Job extends BaseComponent implements JobInterface
 
     protected function afterExecute(): void
     {
-        shared(Database::class)->disconnect();
+        shared(Database::class)->disconnectAll();
     }
 }

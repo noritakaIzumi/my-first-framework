@@ -7,13 +7,11 @@ if (!function_exists('connectDatabase')) {
     /**
      * データベースへ接続します。
      *
+     * @param string $profile
      * @return Dbh
      */
-    function connectDatabase(): Dbh
+    function connectDatabase(string $profile = 'default'): Dbh
     {
-        $database = shared(Database::class);
-        $database->connect();
-
-        return $database->connection->dbh;
+        return shared(Database::class)->connect($profile)->dbh;
     }
 }

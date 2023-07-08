@@ -9,32 +9,47 @@
 namespace Internal\Shared\Database;
 
 use Internal\Component\Database\Connection;
+use Internal\Component\Database\ConnectionInfo;
+use InvalidArgumentException;
 
 class Database
 {
-    public ?Connection $connection = null;
+    /**
+     * @var Connection[]
+     */
+    public array $connectionPool = [];
 
-    public function connect(): static
+    /**
+     * @param string $profile
+     * @return Connection
+     */
+    public function connect(string $profile = 'default'): Connection
     {
-        $connectionInfo = shared(ConnectionInfo::class);
-        $connectionInfo->setFromEnv();
-        $this->connection = component(Connection::class, [
-            [
-                'type' => $connectionInfo->getType(),
-                'host' => $connectionInfo->getHost(),
-                'database' => $connectionInfo->getDatabase(),
-                'username' => $connectionInfo->getUsername(),
-                'password' => $connectionInfo->getPassword(),
-            ]
-        ]);
+        if ($profile === 'default') {
+            $connectionInfo = component(ConnectionInfo::class);
+            $connectionInfo->setFromEnv();
+            $this->connectionPool[$profile] = component(Connection::class, [
+                [
+                    'type' => $connectionInfo->getType(),
+                    'host' => $connectionInfo->getHost(),
+                    'database' => $connectionInfo->getDatabase(),
+                    'username' => $connectionInfo->getUsername(),
+                    'password' => $connectionInfo->getPassword(),
+                ]
+            ]);
+            return $this->connectionPool[$profile];
+        }
 
-        return $this;
+        throw new InvalidArgumentException("the db profile $profile does not exist");
     }
 
-    public function disconnect(): static
+    public function disconnect(string $profile = 'default'): void
     {
-        $this->connection = null;
+        $this->connectionPool[$profile] = null;
+    }
 
-        return $this;
+    public function disconnectAll(): void
+    {
+        $this->connectionPool = [];
     }
 }
