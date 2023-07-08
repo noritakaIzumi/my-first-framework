@@ -10,10 +10,10 @@
 /.phpunit.cache export-ignore
 /.phpunit.result.cache export-ignore
 
+# .gitignore END ###############################################################
+
 # build artifacts
 /build export-ignore
-
-# .gitignore END ###############################################################
 
 # sample environment
 /_env export-ignore

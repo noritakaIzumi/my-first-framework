@@ -8,6 +8,3 @@
 # phpunit
 /.phpunit.cache
 /.phpunit.result.cache
-
-# build artifacts
-/build
