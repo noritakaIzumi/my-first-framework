@@ -73,5 +73,4 @@ class WebCmd extends AbstractCmd
         // ワークフロー内から他のワークフローを呼び出すことを想定し、レスポンスは独立させる
         shared(WebResponse::class)->respond();
     }
-
 }

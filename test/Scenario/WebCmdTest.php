@@ -29,7 +29,6 @@ class WebCmdTest extends AbstractTestCase
     {
         parent::tearDown();
         ob_end_clean();
-        $this->cmd->reset();
     }
 
     protected function assertOutput(string $output): void

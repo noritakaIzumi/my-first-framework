@@ -33,14 +33,4 @@ abstract class AbstractCmd
         return shared(Router::class, [shared(Routes::class)])
             ->getWorkflow($requestMethod, $path);
     }
-
-    /**
-     * reset factories.
-     *
-     * @return void
-     */
-    public function reset(): void
-    {
-        shared(FactoryManager::class)->reset();
-    }
 }
