@@ -6,7 +6,7 @@
  * Time: 18:59
  */
 
-use Internal\Factory\FactoryForge;
+use Internal\Factory\FactoryManager;
 
 require_once __DIR__ . '/../examples/autoload.php';
 
@@ -14,4 +14,4 @@ require_once __DIR__ . '/../examples/autoload.php';
 ini_set('display_errors', 1);
 
 // save mock state
-FactoryForge::save();
+shared(FactoryManager::class)->save();

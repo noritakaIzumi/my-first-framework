@@ -8,7 +8,7 @@
 
 namespace Internal\Factory;
 
-abstract class BaseFactory implements ManageFactoryInterface
+abstract class BaseFactory implements ForgeFactoryInterface
 {
     /**
      * @var array<class-string, object>

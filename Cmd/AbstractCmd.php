@@ -11,7 +11,7 @@ namespace Cmd;
 use Internal\Component\Workflow;
 use Internal\Factory\CmdFactory;
 use Internal\Factory\ComponentFactory;
-use Internal\Factory\FactoryForge;
+use Internal\Factory\FactoryManager;
 use Internal\Factory\SharedFactory;
 use Internal\Shared\Router;
 use Internal\Shared\Routes;
@@ -41,6 +41,6 @@ abstract class AbstractCmd
      */
     public function reset(): void
     {
-        FactoryForge::reset();
+        shared(FactoryManager::class)->reset();
     }
 }

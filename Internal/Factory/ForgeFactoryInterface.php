@@ -2,7 +2,7 @@
 
 namespace Internal\Factory;
 
-interface ManageFactoryInterface
+interface ForgeFactoryInterface
 {
     public static function save();
 
