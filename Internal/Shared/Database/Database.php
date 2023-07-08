@@ -27,7 +27,7 @@ class Database
     {
         if ($profile === 'default') {
             $connectionInfo = component(ConnectionInfo::class);
-            $connectionInfo->setFromEnv();
+            $connectionInfo->setFromEnv($profile);
             $this->connectionPool[$profile] = component(Connection::class, [
                 [
                     'type' => $connectionInfo->getType(),

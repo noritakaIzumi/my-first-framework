@@ -63,21 +63,35 @@ class ConnectionInfo
         return $this->password;
     }
 
-    public function setFromEnv(): ConnectionInfo
+    public function setFromEnv(string $profile = 'default'): ConnectionInfo
     {
-        $dotenv = Dotenv::createMutable(paths()->app, '.env.database');
+        $dotenv = Dotenv::createMutable(paths()->app, '.env');
         $env = $dotenv->load();
 
-        $dotenv->ifPresent('DB_TYPE')->notEmpty();
-        if (array_key_exists('DB_TYPE', $env)) {
-            $this->type = $env['DB_TYPE'];
+        $upperProfile = strtoupper($profile);
+        $varNames = [
+            'DB_TYPE' => "DB_TYPE_$upperProfile",
+            'DB_HOST' => "DB_HOST_$upperProfile",
+            'DB_NAME' => "DB_NAME_$upperProfile",
+            'DB_USER' => "DB_USER_$upperProfile",
+            'DB_PASS' => "DB_PASS_$upperProfile",
+        ];
+
+        $dotenv->ifPresent($varNames['DB_TYPE'])->notEmpty();
+        if (array_key_exists($varNames['DB_TYPE'], $env)) {
+            $this->type = $env[$varNames['DB_TYPE']];
         }
 
-        $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS'])->notEmpty();
-        $this->host = $env['DB_HOST'];
-        $this->database = $env['DB_NAME'];
-        $this->username = $env['DB_USER'];
-        $this->password = $env['DB_PASS'];
+        $dotenv->required([
+            $varNames['DB_HOST'],
+            $varNames['DB_NAME'],
+            $varNames['DB_USER'],
+            $varNames['DB_PASS']
+        ])->notEmpty();
+        $this->host = $env[$varNames['DB_HOST']];
+        $this->database = $env[$varNames['DB_NAME']];
+        $this->username = $env[$varNames['DB_USER']];
+        $this->password = $env[$varNames['DB_PASS']];
 
         return $this;
     }
