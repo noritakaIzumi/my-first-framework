@@ -8,11 +8,11 @@
 
 namespace Scenario;
 
+use AbstractTestCase;
 use Cmd\WebCmd;
 use Internal\Shared\Routes;
-use PHPUnit\Framework\TestCase;
 
-class WebCmdTest extends TestCase
+class WebCmdTest extends AbstractTestCase
 {
     protected WebCmd $cmd;
     protected Routes $routes;

@@ -24,7 +24,8 @@
   "autoload": {
     "psr-4": {
       "Internal\\": "Internal",
-      "Cmd\\": "Cmd"
+      "Cmd\\": "Cmd",
+      "Mock\\": "Mock"
     },
     "files": [
       "Internal/preload.php"

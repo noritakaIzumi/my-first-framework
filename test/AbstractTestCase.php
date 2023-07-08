@@ -1,7 +1,6 @@
 <?php
 
-use Internal\Factory\ComponentFactory;
-use Internal\Factory\SharedFactory;
+use Internal\Factory\FactoryForge;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,7 +16,6 @@ class AbstractTestCase extends TestCase
         parent::tearDown();
 
         Mockery::close();
-        ComponentFactory::reset();
-        SharedFactory::reset();
+        FactoryForge::reset();
     }
 }

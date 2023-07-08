@@ -3,6 +3,7 @@
 use Internal\Factory\CmdFactory;
 use Internal\Factory\ComponentFactory;
 use Internal\Factory\SharedFactory;
+use Internal\Shared\AbstractPathConfig;
 
 /**
  * Shared サービスを読み込みます。
@@ -47,4 +48,13 @@ function component(string $className, array $constructorArgs = []): object
 function cmd(string $className, array $constructorArgs = []): object
 {
     return CmdFactory::getInstance($className, $constructorArgs);
+}
+
+/**
+ * パス設定を取得します。
+ * @return AbstractPathConfig
+ */
+function paths(): AbstractPathConfig
+{
+    return shared(AbstractPathConfig::class);
 }

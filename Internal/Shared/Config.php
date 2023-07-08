@@ -7,6 +7,13 @@ use Monolog\Level;
 
 class Config
 {
+    protected AbstractPathConfig $paths;
+
+    public function __construct()
+    {
+        $this->paths = paths();
+    }
+
     /**
      * php.ini の設定を上書きする
      * @return $this
@@ -14,7 +21,7 @@ class Config
     public function phpIni(): static
     {
         ini_set('display_errors', 0);
-        ini_set('error_log', LOG_PATH . '/php_error.log');
+        ini_set('error_log', $this->paths->log . '/php_error.log');
         return $this;
     }
 
@@ -38,7 +45,7 @@ class Config
         $logging->addLogger('default');
         $logging
             ->getLogger('default')
-            ->pushHandler(new StreamHandler(LOG_PATH . '/default.log', Level::Debug));
+            ->pushHandler(new StreamHandler($this->paths->log . '/default.log', Level::Debug));
         return $this;
     }
 

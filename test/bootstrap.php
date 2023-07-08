@@ -6,7 +6,12 @@
  * Time: 18:59
  */
 
+use Internal\Factory\FactoryForge;
+
 require_once __DIR__ . '/../examples/autoload.php';
 
 // Display errors in test
 ini_set('display_errors', 1);
+
+// save mock state
+FactoryForge::save();
