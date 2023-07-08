@@ -58,3 +58,12 @@ function paths(): AbstractPathConfig
 {
     return shared(AbstractPathConfig::class);
 }
+
+/**
+ * テスト実行中であるかどうかを判定します。
+ * @return bool テスト実行中: true, それ以外: false
+ */
+function isTesting(): bool
+{
+    return defined('IS_TESTING');
+}

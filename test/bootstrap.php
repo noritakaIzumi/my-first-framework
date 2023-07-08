@@ -8,7 +8,10 @@
 
 use Internal\Factory\FactoryManager;
 
-require_once __DIR__ . '/../examples/config/autoload.php';
+require_once __DIR__ . '/Support/config/autoload.php';
+
+// mark as testing environment
+const IS_TESTING = true;
 
 // Display errors in test
 ini_set('display_errors', 1);

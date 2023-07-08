@@ -33,7 +33,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Support\\Factory\\": "test/Support/Factory"
+      "Support\\Factory\\": "test/Support/Factory",
+      "Support\\Internal\\": "test/Support/Internal"
     },
     "files": [
       "test/AbstractTestCase.php"
