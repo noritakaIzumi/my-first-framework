@@ -2,7 +2,7 @@
   "name": "noritaka_izumi/my-first-framework",
   "description": "My First Framework",
   "type": "library",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
