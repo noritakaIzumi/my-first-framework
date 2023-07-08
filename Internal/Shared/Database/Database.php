@@ -26,18 +26,9 @@ class Database
     public function connect(string $profile = 'default'): Connection
     {
         if ($profile === 'default') {
-            $connectionInfo = component(ConnectionInfo::class);
-            $connectionInfo->setFromEnv($profile);
-            $this->connectionPool[$profile] = component(Connection::class, [
-                [
-                    'type' => $connectionInfo->getType(),
-                    'host' => $connectionInfo->getHost(),
-                    'database' => $connectionInfo->getDatabase(),
-                    'username' => $connectionInfo->getUsername(),
-                    'password' => $connectionInfo->getPassword(),
-                ]
-            ]);
-            return $this->connectionPool[$profile];
+            $connection = component(Connection::class, [ConnectionInfo::createFromEnv($profile)]);
+            $this->connectionPool[$profile] = $connection;
+            return $connection;
         }
 
         throw new InvalidArgumentException("the db profile $profile does not exist");

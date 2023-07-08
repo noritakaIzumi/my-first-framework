@@ -14,9 +14,15 @@ class Connection extends BaseComponent
 {
     public ?Dbh $dbh;
 
-    public function __construct(...$args)
+    public function __construct(ConnectionInfo $connectionInfo)
     {
         parent::__construct();
-        $this->dbh = new Dbh(...$args);
+        $this->dbh = new Dbh([
+            'type' => $connectionInfo->getType(),
+            'host' => $connectionInfo->getHost(),
+            'database' => $connectionInfo->getDatabase(),
+            'username' => $connectionInfo->getUsername(),
+            'password' => $connectionInfo->getPassword(),
+        ]);
     }
 }
