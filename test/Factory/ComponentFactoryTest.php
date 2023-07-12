@@ -9,13 +9,13 @@ use Support\Factory\PureComponent;
 
 class ComponentFactoryTest extends AbstractTestCase
 {
-    public function testGetInstance__モックもクラスも登録しない場合、元のクラスがインスタンス化される()
+    public function testGetInstance__モックもクラスも登録しない場合、元のクラスがインスタンス化される(): void
     {
         $component = component(PureComponent::class);
         $this->assertSame('pure component', $component->func());
     }
 
-    public function testGetInstance__モックのみを登録した場合、そのモックが返される()
+    public function testGetInstance__モックのみを登録した場合、そのモックが返される(): void
     {
         $mockComponent = new class extends PureComponent {
             public function func(): string
@@ -28,7 +28,7 @@ class ComponentFactoryTest extends AbstractTestCase
         $this->assertSame('mock component', $component->func());
     }
 
-    public function testGetInstance__クラスのみを登録した場合、そのクラスのインスタンスが返される()
+    public function testGetInstance__クラスのみを登録した場合、そのクラスのインスタンスが返される(): void
     {
         ComponentFactory::overloadClass(PureComponent::class, OverloadComponent::class);
         $component = component(PureComponent::class);
