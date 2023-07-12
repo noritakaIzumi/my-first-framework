@@ -14,13 +14,20 @@ use Internal\Shared\Routes;
 
 class WebCmdTest extends AbstractTestCase
 {
+    protected static WebCmd $registry;
     protected WebCmd $cmd;
     protected Routes $routes;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::$registry = (new WebCmd('/index.php'))->setGetQueryFromUrl(true);
+    }
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->cmd = cmd(WebCmd::class, ['/index.php'])->setGetQueryFromUrl(true);
+        $this->cmd = clone self::$registry;
         $this->routes = routes();
         ob_start();
     }
