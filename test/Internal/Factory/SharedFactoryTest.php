@@ -1,9 +1,8 @@
 <?php
 
-namespace Factory;
+namespace Internal\Factory;
 
 use AbstractTestCase;
-use Internal\Factory\SharedFactory;
 use Support\Factory\OverloadComponent;
 use Support\Factory\PureComponent;
 

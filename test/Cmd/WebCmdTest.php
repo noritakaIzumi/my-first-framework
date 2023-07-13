@@ -6,7 +6,7 @@
  * Time: 18:20
  */
 
-namespace Scenario;
+namespace Cmd;
 
 use AbstractTestCase;
 use Cmd\WebCmd;

@@ -6,10 +6,9 @@
  * Time: 04:56
  */
 
-namespace Internal;
+namespace Internal\Component;
 
 use AbstractTestCase;
-use Internal\Component\UrlComponents;
 
 /**
  * @covers \Internal\Component\UrlComponents
