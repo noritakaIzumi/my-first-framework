@@ -9,7 +9,7 @@
 namespace Cmd;
 
 use AbstractTestCase;
-use Cmd\WebCmd;
+use Internal\Shared\HttpHeadersSent;
 use Internal\Shared\Routes;
 
 class WebCmdTest extends AbstractTestCase
@@ -193,5 +193,89 @@ class WebCmdTest extends AbstractTestCase
 
         $this->cmd->run('get', '/request');
         $this->assertOutput('unknown/unknown/unknown');
+    }
+
+    public function test_ヘッダを送信する_何も送信しない(): void
+    {
+        $this->routes->get(
+            '/hello',
+            [
+                static function () {
+                },
+            ]
+        );
+
+        $this->cmd->run('get', '/hello');
+        $this->assertSame(
+            [],
+            shared(HttpHeadersSent::class)->getHeaders(),
+            '送信されたヘッダ',
+        );
+    }
+
+    /**
+     * テスト上では実際に送信できないため、仮の確認となります。
+     * @return void
+     */
+    public function test_ヘッダを送信する_コンテンツタイプを指定(): void
+    {
+        $this->routes->get(
+            '/hello',
+            [
+                static function () {
+                    // ヘッダは以下のようにセットします
+                    httpHeader()->addHeader('Content-Type: application/json', responseCode: 200);
+                },
+            ]
+        );
+
+        $this->cmd->run('get', '/hello');
+        $httpHeadersSent = shared(HttpHeadersSent::class);
+        $this->assertSame(
+            ['Content-Type' => ['application/json']],
+            $httpHeadersSent->getHeaders(),
+            '送信されたヘッダ',
+        );
+        $this->assertSame(200, $httpHeadersSent->getResponseCode());
+    }
+
+    public function test_ヘッダを送信する_同じnameを複数指定_上書きする(): void
+    {
+        $this->routes->get(
+            '/hello',
+            [
+                static function () {
+                    httpHeader()->addHeader('Content-Type: application/json');
+                    httpHeader()->addHeader('Content-Type: text/plain');
+                },
+            ]
+        );
+
+        $this->cmd->run('get', '/hello');
+        $this->assertSame(
+            ['Content-Type' => ['text/plain']],
+            shared(HttpHeadersSent::class)->getHeaders(),
+            '送信されたヘッダ',
+        );
+    }
+
+    public function test_ヘッダを送信する_同じnameを複数指定_上書きしない(): void
+    {
+        $this->routes->get(
+            '/hello',
+            [
+                static function () {
+                    httpHeader()->addHeader('Content-Type: application/json', false);
+                    httpHeader()->addHeader('Content-Type: text/plain', false);
+                },
+            ]
+        );
+
+        $this->cmd->run('get', '/hello');
+        $this->assertSame(
+            ['Content-Type' => ['application/json', 'text/plain']],
+            shared(HttpHeadersSent::class)->getHeaders(),
+            '送信されたヘッダ',
+        );
     }
 }

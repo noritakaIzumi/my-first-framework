@@ -8,6 +8,8 @@
 
 namespace Internal\Shared\Response;
 
+use Internal\Component\Header;
+use Internal\Shared\HttpHeadersSent;
 use Pkg\Json;
 
 class WebResponse implements ResponseInterface
@@ -23,8 +25,15 @@ class WebResponse implements ResponseInterface
         };
 
         foreach (httpHeader()->getHeaders() as $header) {
-            header($header->header, $header->replace, $header->responseCode);
+            $this->header($header);
         }
         echo $output;
+    }
+
+    protected function header(Header $header): void
+    {
+        header($header->header, $header->replace, $header->responseCode);
+        // TODO: ここはテスト環境のみの処理としたい
+        shared(HttpHeadersSent::class)->addHeader($header);
     }
 }
