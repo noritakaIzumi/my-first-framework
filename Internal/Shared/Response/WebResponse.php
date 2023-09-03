@@ -33,7 +33,8 @@ class WebResponse implements ResponseInterface
     protected function header(Header $header): void
     {
         header($header->header, $header->replace, $header->responseCode);
-        // TODO: ここはテスト環境のみの処理としたい
-        shared(HttpHeadersSent::class)->addHeader($header);
+        if (isTesting()) {
+            shared(HttpHeadersSent::class)->addHeader($header);
+        }
     }
 }

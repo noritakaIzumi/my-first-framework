@@ -65,5 +65,5 @@ function paths(): AbstractPathConfig
  */
 function isTesting(): bool
 {
-    return defined('IS_TESTING');
+    return defined('IS_TESTING') && IS_TESTING === true;
 }
