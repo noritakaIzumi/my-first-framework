@@ -8,11 +8,10 @@
 
 namespace Cmd;
 
+use Internal\Shared\Response\ResponseInterface;
 use Internal\Shared\Response\WebResponse;
 use Internal\Shared\Store\Request;
 use Internal\Shared\UrlParser;
-
-use function shared;
 
 class WebCmd extends AbstractCmd
 {
@@ -23,6 +22,12 @@ class WebCmd extends AbstractCmd
      */
     protected string $entrypoint;
     /**
+     * レスポンスオブジェクト
+     *
+     * @var ResponseInterface
+     */
+    protected ResponseInterface $response;
+    /**
      * GET パラメータを $_GET からではなく URL の解析によって取得する場合、これを true にする。
      *
      * @var bool
@@ -31,11 +36,13 @@ class WebCmd extends AbstractCmd
 
     /**
      * @param string $entrypoint
+     * @param ResponseInterface|null $response
      */
-    public function __construct(string $entrypoint)
+    public function __construct(string $entrypoint, ResponseInterface $response = null)
     {
         parent::__construct();
         $this->entrypoint = $entrypoint;
+        $this->response = $response ?? shared(WebResponse::class);
     }
 
     /**
@@ -71,6 +78,6 @@ class WebCmd extends AbstractCmd
         $this->getWorkflow($requestMethod, $path)->run();
 
         // ワークフロー内から他のワークフローを呼び出すことを想定し、レスポンスは独立させる
-        shared(WebResponse::class)->respond();
+        $this->response->respond();
     }
 }
