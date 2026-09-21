@@ -37,6 +37,7 @@ services:
         target: /usr/local/etc/php/php.ini
     working_dir: /workspace
   db:
+    hostname: host.db
     build:
       context: postgres
       args:
