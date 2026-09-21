@@ -3,6 +3,8 @@
 namespace Internal\Factory;
 
 use AbstractTestCase;
+use Mockery;
+use Monolog\Logger;
 use Support\Factory\OverloadComponent;
 use Support\Factory\PureComponent;
 
@@ -32,5 +34,13 @@ class ComponentFactoryTest extends AbstractTestCase
         ComponentFactory::overloadClass(PureComponent::class, OverloadComponent::class);
         $component = component(PureComponent::class);
         $this->assertSame('overload component', $component->func());
+    }
+
+    public function testGetInstance__defaultLoggerはモックできない(): void
+    {
+        $mock = Mockery::mock(Logger::class);
+        ComponentFactory::injectMock(Logger::class, $mock);
+        $logger = logger();
+        $this->assertNotSame(spl_object_hash($logger), spl_object_hash($mock));
     }
 }
