@@ -11,6 +11,8 @@ namespace Cmd;
 use AbstractTestCase;
 use Internal\Shared\HttpHeadersSent;
 use Internal\Shared\Routes;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestWith;
 
 class WebCmdTest extends AbstractTestCase
 {
@@ -139,7 +141,17 @@ class WebCmdTest extends AbstractTestCase
         $this->assertOutput('123');
     }
 
-    public function test_正規表現を指定するケース2_引数を入れ替える(): void
+    /**
+     * 第三引数は preg_replace の第二引数のように扱うことができます。
+     * https://www.php.net/manual/en/function.preg-replace
+     *
+     * @param string $requestUri
+     * @param $expectedOutput
+     * @return void
+     */
+    #[TestWith(['/jane/morning', 'Good morning, Jane.'])]
+    #[TestWith(['/noah/afternoon', 'Good afternoon, Noah.'])]
+    public function test_正規表現を指定するケース2_引数を入れ替える(string $requestUri, $expectedOutput): void
     {
         $this->routes
             ->get(
@@ -150,32 +162,27 @@ class WebCmdTest extends AbstractTestCase
                         artifact()->set('output', "Good $time, $name.");
                     }
                 ],
-                /*
-                 * 第三引数は preg_replace の第二引数のように扱うことができます。
-                 * https://www.php.net/manual/en/function.preg-replace
-                 */
                 '$2/$1'
             );
 
-        $this->cmd->run('get', '/jane/morning');
-        $this->assertOutput('Good morning, Jane.');
-
-        $this->cmd->run('get', '/noah/afternoon');
-        $this->assertOutput('Good afternoon, Noah.');
+        $this->cmd->run('get', $requestUri);
+        $this->assertOutput($expectedOutput);
     }
 
     /**
      * リクエストパラメータは Request クラスから受け取ります。
      *
+     * @param string $requestUri
+     * @param string $expectedOutput
      * @return void
      */
-    public function test_リクエストパラメータ(): void
+    #[TestWith(['/request?year=2022&month=8&day=16', '2022/8/16'])]
+    #[TestWith(['/request/', 'unknown/unknown/unknown'])]
+    public function test_リクエストパラメータ(string $requestUri, string $expectedOutput): void
     {
         $this->routes->get(
             '/request',
             [
-                // "/request?year=2022&month=8&day=16" でアクセスすると "2022/8/16" を返します。
-                // "/request" のようにパラメータがない場合は、第二引数に指定された値があればそれを返します。
                 static function () {
                     $request = request();
 
@@ -188,11 +195,8 @@ class WebCmdTest extends AbstractTestCase
             ],
         );
 
-        $this->cmd->run('get', '/request?year=2022&month=8&day=16');
-        $this->assertOutput('2022/8/16');
-
-        $this->cmd->run('get', '/request');
-        $this->assertOutput('unknown/unknown/unknown');
+        $this->cmd->run('get', $requestUri);
+        $this->assertOutput($expectedOutput);
     }
 
     public function test_ヘッダを送信する_何も送信しない(): void
