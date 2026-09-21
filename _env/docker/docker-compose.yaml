@@ -3,7 +3,7 @@ services:
     build:
       context: httpd
       args:
-        - HTTPD_VERSION=${HTTPD_VERSION}
+        - HTTPD_VERSION=${HTTPD_VERSION:-2.4}
     volumes:
       - type: bind
         source: ./htdocs
@@ -23,7 +23,7 @@ services:
     build:
       context: php
       args:
-        - PHP_VERSION=${PHP_VERSION}
+        - PHP_VERSION=${PHP_VERSION:-8.1}
         - COMPOSER_BIN_DIR=/workspace/vendor/bin
     volumes:
       - type: bind
@@ -40,7 +40,7 @@ services:
     build:
       context: postgres
       args:
-        - VERSION=${POSTGRES_VERSION}
+        - VERSION=${POSTGRES_VERSION:-14}
     restart: always
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}

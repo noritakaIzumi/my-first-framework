@@ -6,29 +6,12 @@ Docker environment template: Apache httpd & PHP-FPM
 
 - Docker installed
 
-## Get started
-
-First, copy `.env.template` and save it as `.env`:
-
-```shell
-cp .env.template .env
-```
-
-Then execute the following command:
-
-```shell
-docker compose up
-```
-
 ## Run the examples application
 
-Run the following commands from this directory (`_env/docker`). They create
-the configuration files, start the containers in the background, and install
-the dependencies used by `examples`.
+Run the following commands from this directory (`_env/docker`). They start the
+containers in the background and install the dependencies used by `examples`.
 
 ```shell
-cp .env.template .env
-cp ../../examples/.env.example ../../examples/.env
 docker compose up --build -d
 docker compose exec php sh -lc 'cd examples && composer install'
 ```
@@ -48,9 +31,16 @@ port mapping in `docker-compose.yaml` before starting the containers.
 
 ## Customize httpd & php-fpm version
 
-By default, we can configure the version strings in `.env`.
-The variables are used for searching docker image names.
-If an image not found, Docker will cause errors.
+The default versions are defined in `docker-compose.yaml`. To use another
+version, set the corresponding environment variable when running Docker
+Compose. For example:
+
+```shell
+PHP_VERSION=8.2 docker compose up --build
+```
+
+`HTTPD_VERSION`, `POSTGRES_VERSION`, and `POSTGRES_PASSWORD` can be overridden
+in the same way.
 
 ## Roadmap
 
