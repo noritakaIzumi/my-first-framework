@@ -1,0 +1,22 @@
+name: PHPUnit
+
+on:
+  push:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    env:
+      PHP_VERSION: "8.1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build PHP test environment
+        run: docker compose -f _env/docker/docker-compose.yaml build php
+
+      - name: Run PHPUnit
+        run: >-
+          docker compose -f _env/docker/docker-compose.yaml run --rm --no-deps
+          --entrypoint sh php -lc
+          'composer install --no-interaction --prefer-dist && vendor/bin/phpunit'
