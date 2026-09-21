@@ -8,10 +8,16 @@ Docker environment template: Apache httpd & PHP-FPM
 
 ## Get started
 
-Execute the following command:
+First, copy `.env.template` and save it as `.env`:
 
 ```shell
-docker-compose up
+cp .env.template .env
+```
+
+Then execute the following command:
+
+```shell
+docker compose up
 ```
 
 ## Customize httpd & php-fpm version
