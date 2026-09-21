@@ -10,16 +10,13 @@ services:
         target: /usr/local/apache2/htdocs
       - type: bind
         source: ../..
-        target: /usr/local/apache2/${APP_NAME}
+        target: /workspace
       - type: bind
         source: ./httpd/httpd.conf
         target: /usr/local/apache2/conf/httpd.conf
       - type: bind
         source: ./httpd/httpd-vhosts.conf
         target: /usr/local/apache2/conf/extra/httpd-vhosts.conf
-    environment:
-      - APP_NAME
-      - APP_HOST
     ports:
       - "80:80"
   php:
@@ -27,18 +24,18 @@ services:
       context: php
       args:
         - PHP_VERSION=${PHP_VERSION}
-        - COMPOSER_BIN_DIR=/usr/local/apache2/${APP_NAME}/vendor/bin
+        - COMPOSER_BIN_DIR=/workspace/vendor/bin
     volumes:
       - type: bind
         source: ./htdocs
         target: /usr/local/apache2/htdocs
       - type: bind
         source: ../..
-        target: /usr/local/apache2/${APP_NAME}
+        target: /workspace
       - type: bind
         source: ./php/php.ini
         target: /usr/local/etc/php/php.ini
-    working_dir: /usr/local/apache2/${APP_NAME}
+    working_dir: /workspace
   db:
     build:
       context: postgres
