@@ -10,6 +10,7 @@ namespace Internal\Shared;
 
 use AbstractTestCase;
 use Closure;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @property Routes $routes
@@ -46,6 +47,17 @@ class RoutesTest extends AbstractTestCase
         );
     }
 
+    public static function addRoutesProvider(): array
+    {
+        return [
+            'root' => ['/'],
+            'depth 1' => ['/hello'],
+            'depth 2' => ['/hello/goodbye'],
+            'alphanumeric' => ['/foo1bar2'],
+        ];
+    }
+
+    #[DataProvider('addRoutesProvider')]
     public function test_getメソッドに追加(): void
     {
         $closure = static fn() => null;
@@ -55,6 +67,7 @@ class RoutesTest extends AbstractTestCase
         $this->assertCallback($closure, 'get', '/', 0);
     }
 
+    #[DataProvider('addRoutesProvider')]
     public function test_postメソッドに追加(): void
     {
         $closure = static fn() => null;
