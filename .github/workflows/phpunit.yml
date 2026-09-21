@@ -10,7 +10,7 @@ jobs:
       PHP_VERSION: "8.1"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Build PHP test environment
         run: docker compose -f _env/docker/docker-compose.yaml build php
