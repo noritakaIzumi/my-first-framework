@@ -19,7 +19,7 @@
     "pharaonic/php-dot-array": "^1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~9.5.21",
+    "phpunit/phpunit": "~10.5.64",
     "mockery/mockery": "~1.5.0"
   },
   "autoload": {
@@ -39,5 +39,9 @@
     "files": [
       "test/AbstractTestCase.php"
     ]
+  },
+  "scripts": {
+    "test": "XDEBUG_MODE=coverage phpunit",
+    "test:no-cov": "phpunit --no-coverage"
   }
 }
