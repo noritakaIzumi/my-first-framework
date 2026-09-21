@@ -1,4 +1,13 @@
 ARG PHP_VERSION
+
+FROM alpine AS xdebug-config
+
+WORKDIR /xdebug
+COPY xdebug.ini-override* ./
+RUN if [ ! -f xdebug.ini-override ]; then \
+        cp xdebug.ini-override.template xdebug.ini-override; \
+    fi
+
 FROM php:${PHP_VERSION}-fpm-alpine
 
 RUN apk update \
@@ -10,7 +19,7 @@ RUN apk update \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install pdo_pgsql
 
-COPY xdebug.ini-override /tmp/xdebug.ini-override
+COPY --from=xdebug-config /xdebug/xdebug.ini-override /tmp/xdebug.ini-override
 RUN cat /tmp/xdebug.ini-override >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # composer
@@ -20,4 +29,5 @@ ENV PATH=$PATH:${COMPOSER_BIN_DIR}
 RUN apk add unzip
 
 COPY ./docker-php-entrypoint.sh /docker-php-entrypoint.sh
+RUN chmod a+x /docker-php-entrypoint.sh
 ENTRYPOINT ["/docker-php-entrypoint.sh"]
