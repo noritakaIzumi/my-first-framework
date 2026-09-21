@@ -70,11 +70,6 @@ class WebCmdTest extends AbstractTestCase
         $this->assertOutput('Hello World.');
     }
 
-    /**
-     * クロージャーを複数指定した場合、前のクロージャーの返り値が次のクロージャーの第一引数に渡されます。
-     *
-     * @return void
-     */
     public function test_クロージャーを複数指定したケース(): void
     {
         $this->routes->get(
